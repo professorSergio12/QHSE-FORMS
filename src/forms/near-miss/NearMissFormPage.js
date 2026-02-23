@@ -1,0 +1,436 @@
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { getFormConfig } from "@/lib/qhseFormConfig";
+
+const AREA_OPTIONS = [
+  "Main Deck",
+  "Bridge",
+  "Offshore",
+  "Support Craft",
+  "Manifold Area",
+  "Mobilization & Demobilization",
+  "Transportation",
+  "Cargo Control Room",
+  "Underway / Anchoring",
+  "Other",
+];
+
+const POSITION_OPTIONS = [
+  "Mooring Master - POAC",
+  "Management",
+  "Third Party",
+  "Other",
+];
+
+const TYPE_OPTIONS = [
+  "Near Miss",
+  "Collision",
+  "Fatality",
+  "Injury",
+  "Pollution",
+  "Contact Damage",
+  "Best Practice",
+];
+
+export default function NearMissFormPage() {
+  const router = useRouter();
+  const config = getFormConfig("near-miss");
+  const formCode = config?.formCode || "QAF-OFD-015";
+  const [form, setForm] = useState({
+    jobRef: "",
+    vesselName: "",
+    date: "",
+    observerName: "",
+    position: "",
+    positionOther: "",
+    email: "",
+    typeOfReporting: "",
+    area: "",
+    description: "",
+    immediateCause: "",
+    rootCause: "",
+    correctiveAction: "",
+  });
+
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [submitSuccess, setSubmitSuccess] = useState("");
+  const [lastSubmittedSerial, setLastSubmittedSerial] = useState("");
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setSubmitError("");
+    setSubmitSuccess("");
+
+    try {
+      // Validate required fields
+      if (
+        !form.jobRef ||
+        !form.vesselName ||
+        !form.position ||
+        !form.email ||
+        !form.typeOfReporting
+      ) {
+        setSubmitError("Please fill all required fields marked with *");
+        setSubmitting(false);
+        return;
+      }
+
+      const payload = {
+        JobRefNo: form.jobRef.trim(),
+        VesselName: form.vesselName.trim(),
+        timeOfIncident: form.date,
+        NameOfObserver: form.observerName.trim(),
+        PositionOfObserver: form.position,
+        email: form.email.trim(),
+        TypeOfReporting: form.typeOfReporting,
+        AreaOfNearMiss: form.area,
+        Description: form.description.trim(),
+        ImmediateCause: form.immediateCause.trim(),
+        RootCause: form.rootCause.trim(),
+        CorrectiveAction: form.correctiveAction.trim(),
+        status: "Under Review",
+      };
+
+      const createPath = config?.createPath || "near-miss-form/create";
+      const res = await fetch(`/api/proxy/${createPath}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const responseData = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        throw new Error(
+          responseData.error || responseData.message || `Server error: ${res.status} ${res.statusText}`
+        );
+      }
+
+      const newSerial = responseData.data?.serialNumber || "";
+      setLastSubmittedSerial(newSerial);
+      setSubmitSuccess("Form submitted successfully.");
+      setForm({
+        jobRef: "",
+        vesselName: "",
+        date: "",
+        observerName: "",
+        position: "",
+        positionOther: "",
+        email: "",
+        typeOfReporting: "",
+        area: "",
+        description: "",
+        immediateCause: "",
+        rootCause: "",
+        correctiveAction: "",
+      });
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (error) {
+      console.error("Form submission error:", error);
+      setSubmitError(
+        error.message || "Something went wrong while submitting the form."
+      );
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  return (
+    <main className="min-h-screen flex justify-center px-4 py-10">
+      <div className="w-full max-w-3xl bg-gray-800 rounded-2xl border border-gray-700 p-6 md:p-10">
+        {submitSuccess && (
+          <div className="mb-6 rounded-lg bg-emerald-900/80 border border-emerald-700 px-4 py-3 text-center">
+            <p className="text-emerald-200 font-semibold">{submitSuccess}</p>
+            {lastSubmittedSerial && (
+              <p className="text-emerald-100/90 text-sm mt-1">
+                Form Code: <span className="font-medium">{formCode}</span>
+                {" · "}
+                Serial No: <span className="font-medium">{lastSubmittedSerial}</span>
+              </p>
+            )}
+          </div>
+        )}
+        <>
+            <header className="mb-6 border-b border-gray-700 pb-4">
+              <div className="flex flex-wrap items-center gap-4 text-sm mb-2">
+                <span className="text-gray-400">Form Code:</span>
+                <span className="font-semibold text-white">{formCode}</span>
+              </div>
+              <p className="text-orange-400 font-semibold">Oceane Group</p>
+              <h1 className="text-2xl md:text-3xl font-bold text-white">
+                Near Miss / Incident &amp; Injury Reporting
+              </h1>
+              <p className="mt-2 text-sm text-gray-300 leading-relaxed">
+                When you submit this form, it will not automatically collect
+                your details like name and email address unless you provide it
+                yourself.
+              </p>
+              <p className="mt-1 text-xs text-red-400 font-medium">
+                * Required
+              </p>
+            </header>
+
+            <form className="space-y-6" onSubmit={handleSubmit}>
+              {/* 1. Job Ref # */}
+              <div>
+                <label className="block font-medium text-white">
+                  1. Job Ref # <span className="text-red-400">*</span>
+                </label>
+                <p className="text-xs text-red-400 mb-1">
+                  Enter Job Ref # (Example: 053-2023)
+                </p>
+                <input
+                  type="text"
+                  name="jobRef"
+                  value={form.jobRef}
+                  onChange={handleChange}
+                  required
+                  className="w-full rounded-lg border border-gray-600 bg-gray-700/50 px-3 py-2 text-sm text-white placeholder:text-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
+                  placeholder="Enter your answer"
+                />
+              </div>
+
+              {/* 2. Vessel Name */}
+              <div>
+                <label className="block font-medium text-white">
+                  2. Vessel Name <span className="text-red-400">*</span>
+                </label>
+                <p className="text-xs text-red-400 mb-1">Enter Vessel Name</p>
+                <input
+                  type="text"
+                  name="vesselName"
+                  value={form.vesselName}
+                  onChange={handleChange}
+                  required
+                  className="w-full rounded-lg border border-gray-600 bg-gray-700/50 px-3 py-2 text-sm text-white placeholder:text-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
+                  placeholder="Enter your answer"
+                />
+              </div>
+
+              {/* 3. Date */}
+              <div>
+                <label className="block font-medium text-white">
+                  3. Date <span className="text-red-400">*</span>
+                </label>
+                <input
+                  type="date"
+                  name="date"
+                  value={form.date}
+                  onChange={handleChange}
+                  required
+                  className="mt-1 w-full rounded-lg border border-gray-600 bg-gray-700/50 px-3 py-2 text-sm text-white focus:outline-none focus:outline-none focus:border-gray-400"
+                />
+              </div>
+
+              {/* 4. Name of the Observer */}
+              <div>
+                <label className="block font-medium text-white">
+                  4. Name of the Observer{" "}
+                  <span className="text-red-400">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="observerName"
+                  value={form.observerName}
+                  onChange={handleChange}
+                  required
+                  className="mt-1 w-full rounded-md border border-gray-600 bg-gray-700/50 px-3 py-2 text-sm text-white placeholder:text-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
+                  placeholder="Enter your answer"
+                />
+              </div>
+
+              {/* 5. Position of Observer */}
+              <div>
+                <p className="font-medium text-white">
+                  5. Position of Observer{" "}
+                  <span className="text-red-400">*</span>
+                </p>
+                <div className="mt-2 space-y-2">
+                  {POSITION_OPTIONS.map((option) => (
+                    <label
+                      key={option}
+                      className="flex items-center gap-2 text-sm text-white"
+                    >
+                      <input
+                        type="radio"
+                        name="position"
+                        value={option}
+                        checked={form.position === option}
+                        onChange={handleChange}
+                        className="h-4 w-4 text-orange-400 focus:ring-orange-500"
+                      />
+                      <span>{option}</span>
+                    </label>
+                  ))}
+                  {form.position === "Other" && (
+                    <input
+                      type="text"
+                      name="positionOther"
+                      value={form.positionOther}
+                      onChange={handleChange}
+                      className="mt-1 w-full rounded-md border border-gray-600 bg-gray-700/50 px-3 py-2 text-sm text-white placeholder:text-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
+                      placeholder="Please specify"
+                    />
+                  )}
+                </div>
+              </div>
+
+              {/* 6. Email address */}
+              <div>
+                <label className="block font-medium text-white">
+                  6. Email address <span className="text-red-400">*</span>
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  required
+                  className="mt-1 w-full rounded-md border border-gray-600 bg-gray-700/50 px-3 py-2 text-sm text-white placeholder:text-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
+                  placeholder="Enter your answer"
+                />
+              </div>
+
+              {/* 7. Type of Reporting */}
+              <div>
+                <p className="font-medium text-white">
+                  7. Type of Reporting <span className="text-red-400">*</span>
+                </p>
+                <div className="mt-2 grid grid-cols-1 md:grid-cols-2 gap-2">
+                  {TYPE_OPTIONS.map((option) => (
+                    <label
+                      key={option}
+                      className="flex items-center gap-2 text-sm text-white"
+                    >
+                      <input
+                        type="radio"
+                        name="typeOfReporting"
+                        value={option}
+                        checked={form.typeOfReporting === option}
+                        onChange={handleChange}
+                        className="h-4 w-4 text-orange-400 focus:ring-orange-500"
+                      />
+                      <span>{option}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* 8. Area of Near Miss, Incident or Injury */}
+              <div>
+                <label className="block font-medium text-white">
+                  8. Area of Near Miss, Incident or Injury{" "}
+                  <span className="text-red-400">*</span>
+                </label>
+                <select
+                  name="area"
+                  value={form.area}
+                  onChange={handleChange}
+                  required
+                  className="mt-1 w-full rounded-lg border border-gray-600 bg-gray-700/50 px-3 py-2 text-sm text-white focus:outline-none focus:outline-none focus:border-gray-400"
+                >
+                  <option value="">Select your answer</option>
+                  {AREA_OPTIONS.map((area) => (
+                    <option key={area} value={area}>
+                      {area}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* 9. Description */}
+              <div>
+                <label className="block font-medium text-white">
+                  9. Description <span className="text-red-400">*</span>
+                </label>
+                <textarea
+                  name="description"
+                  value={form.description}
+                  onChange={handleChange}
+                  required
+                  rows={3}
+                  className="mt-1 w-full rounded-md border border-gray-600 bg-gray-700/50 px-3 py-2 text-sm text-white placeholder:text-gray-400 resize-y focus:outline-none focus:outline-none focus:border-gray-400"
+                  placeholder="Enter your answer"
+                />
+              </div>
+
+              {/* 10. Immediate Cause */}
+              <div>
+                <label className="block font-medium text-white">
+                  10. Immediate Cause <span className="text-red-400">*</span>
+                </label>
+                <textarea
+                  name="immediateCause"
+                  value={form.immediateCause}
+                  onChange={handleChange}
+                  required
+                  rows={3}
+                  className="mt-1 w-full rounded-md border border-gray-600 bg-gray-700/50 px-3 py-2 text-sm text-white placeholder:text-gray-400 resize-y focus:outline-none focus:outline-none focus:border-gray-400"
+                  placeholder="Enter your answer"
+                />
+              </div>
+
+              {/* 11. Root Cause */}
+              <div>
+                <label className="block font-medium text-white">
+                  11. Root Cause <span className="text-red-400">*</span>
+                </label>
+                <textarea
+                  name="rootCause"
+                  value={form.rootCause}
+                  onChange={handleChange}
+                  required
+                  rows={3}
+                  className="mt-1 w-full rounded-md border border-gray-600 bg-gray-700/50 px-3 py-2 text-sm text-white placeholder:text-gray-400 resize-y focus:outline-none focus:outline-none focus:border-gray-400"
+                  placeholder="Enter your answer"
+                />
+              </div>
+
+              {/* 12. Corrective Action */}
+              <div>
+                <label className="block font-medium text-white">
+                  12. Corrective Action <span className="text-red-400">*</span>
+                </label>
+                <textarea
+                  name="correctiveAction"
+                  value={form.correctiveAction}
+                  onChange={handleChange}
+                  required
+                  rows={3}
+                  className="mt-1 w-full rounded-md border border-gray-600 bg-gray-700/50 px-3 py-2 text-sm text-white placeholder:text-gray-400 resize-y focus:outline-none focus:outline-none focus:border-gray-400"
+                  placeholder="Enter your answer"
+                />
+              </div>
+
+              <p className="text-xs text-gray-300">
+                You can print a copy of your answer after you submit.
+              </p>
+
+              {submitError && (
+                <p className="text-sm text-red-400">{submitError}</p>
+              )}
+              {submitSuccess && (
+                <p className="text-sm text-emerald-400">{submitSuccess}</p>
+              )}
+
+              <button
+                type="submit"
+                disabled={submitting}
+                className="mt-2 inline-flex w-full justify-center rounded-md bg-orange-600 py-3 text-white font-semibold  hover:bg-orange-500 disabled:opacity-60 disabled:cursor-not-allowed transition"
+              >
+                {submitting ? "Submitting..." : "Submit"}
+              </button>
+            </form>
+        </>
+      </div>
+    </main>
+  );
+}
