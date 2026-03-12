@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
 import { getFormConfig } from "@/lib/qhseFormConfig";
 
 export default function SupplierDueDiligenceFormContent() {
@@ -364,52 +366,81 @@ export default function SupplierDueDiligenceFormContent() {
   };
 
   return (
-    <div className="flex-1 min-h-screen">
-      <div className="mx-auto max-w-5xl px-6 py-10 space-y-6">
-        <header className="rounded-2xl p-6 border border-gray-700 bg-gray-800 mb-6">
-          <div className="flex items-start justify-between gap-8 flex-wrap">
-            <div className="flex-1 min-w-0">
-              <p className="text-xs uppercase tracking-[0.2em] text-gray-400 mb-2">
-                QHSE / Due Diligence / Supplier Due Diligence Questionnaire
-              </p>
-              <h1 className="text-3xl font-bold text-white mb-2">
-                Supplier Due Diligence Questionnaire
-              </h1>
-              <p className="text-sm text-gray-300">
-                Please fill out all the required information accurately. This
-                questionnaire will be used for supplier evaluation.
-              </p>
+    <div className="min-h-screen">
+      {/* Custom Navigation / Header */}
+      <nav className="bg-gray-800 border-b border-gray-700 sticky top-0 z-50 py-4 px-4 shadow-lg">
+        <div className="container mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-4">
+          <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+            <div className="rounded-lg">
+              <Image
+                src="/image/logo.png"
+                alt="OCEANE GROUP Logo"
+                width={120}
+                height={60}
+                className="object-contain"
+              />
             </div>
-            <div className="flex items-center gap-6 text-sm flex-wrap shrink-0">
-              <div>
-                <span className="text-gray-400">Form Code:</span>{" "}
-                <span className="font-semibold text-white">{formCode || defaultFormCode}</span>
+          </Link>
+
+          <div className="flex-1 flex justify-center">
+            <h1 className="text-2xl lg:text-3xl xl:text-4xl font-bold text-white text-center">
+              Supplier Due Diligence Questionnaire
+            </h1>
+          </div>
+
+          <div className="bg-gray-700 rounded-lg p-3 border border-gray-600 min-w-[250px] w-full md:w-auto">
+            <div className="text-sm space-y-1 text-gray-300">
+              <div className="flex justify-between gap-4">
+                <span>Form Code:</span>
+                <span className="text-white font-semibold">{formCode || defaultFormCode}</span>
               </div>
               {serialNumber && (
-                <div>
-                  <span className="text-gray-400">Serial No:</span>{" "}
-                  <span className="font-semibold text-white">{serialNumber}</span>
+                <div className="flex justify-between gap-4">
+                  <span>Serial No:</span>
+                  <span className="text-white font-semibold">{serialNumber}</span>
                 </div>
               )}
+              <div className="flex justify-between gap-4">
+                <span>Rev.No.:</span>
+                <span className="text-white font-semibold">{version}</span>
+              </div>
+              <div className="flex justify-between gap-4">
+                <span>Rev Date:</span>
+                <span className="text-white font-semibold">N/A</span>
+              </div>
+              <div className="flex justify-between gap-4">
+                <span>Approved by:</span>
+                <span className="text-white font-semibold">JS</span>
+              </div>
             </div>
           </div>
-        </header>
+        </div>
+      </nav>
+
+      <div className="relative min-h-screen">
+        {/* Background Overlay */}
+        <div
+          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed opacity-30 filter blur-xs"
+          style={{ backgroundImage: 'url("/image/ship-bg.jpg")' }}
+        ></div>
+
+        <div className="container relative z-10 mx-auto px-4 py-8 max-w-3xl">
 
         {error && (
-          <div className="text-sm text-red-300 bg-red-900 border border-red-700 rounded-lg px-4 py-3 flex items-center gap-2">
+          <div className="text-sm text-red-300 bg-red-900 border border-red-700 rounded-lg px-4 py-3 flex items-center gap-2 mb-6">
             <span className="text-lg">⚠️</span>
             <span>{error}</span>
           </div>
         )}
 
         {success && (
-          <div className="text-base text-emerald-300 bg-emerald-900/90 border border-emerald-700 rounded-lg px-6 py-4">
+          <div className="text-base text-emerald-300 bg-emerald-900/90 border border-emerald-700 rounded-lg px-6 py-4 mb-6">
             <span className="font-semibold">{success}</span>
           </div>
         )}
 
         {(
-          <form className="rounded-2xl border border-gray-700 bg-gray-800  p-6 space-y-8">
+          <form className="rounded-2xl border border-gray-700 bg-gray-800/90 backdrop-blur-sm p-6 space-y-8 shadow-xl">
             {/* Section 1: Basic Details (Q1-Q9) */}
             <div className="space-y-6">
               <h2 className="text-lg font-semibold text-white border-b border-gray-700 pb-2 flex items-center gap-2">
@@ -1619,6 +1650,7 @@ export default function SupplierDueDiligenceFormContent() {
             </div>
           </form>
         )}
+        </div>
       </div>
     </div>
   );

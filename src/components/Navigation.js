@@ -17,6 +17,14 @@ export default function Navigation() {
   const pathname = usePathname();
   const isFormPage = pathname?.startsWith("/forms/");
   const isHome = pathname === "/";
+  const isHseInduction = pathname === "/forms/hse-induction-checklist";
+  const isAuditForm = pathname === "/forms/audit-form";
+  const isNearMiss = pathname === "/forms/near-miss";
+  const isPoac = pathname === "/forms/poac-cross-competency";
+  const isSupplier = pathname === "/forms/supplier-questionnaire";
+  const isTransferAudit = pathname === "/forms/transfer-audit-report";
+
+  if (isHseInduction || isAuditForm || isNearMiss || isPoac || isSupplier || isTransferAudit) return null;
 
   return (
     <nav className="bg-gray-800 border-b border-gray-700 sticky top-0 z-50">

@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
 import { getFormConfig } from "@/lib/qhseFormConfig";
 
 const AREA_OPTIONS = [
@@ -144,39 +146,81 @@ export default function NearMissFormPage() {
   };
 
   return (
-    <main className="min-h-screen flex justify-center px-4 py-10">
-      <div className="w-full max-w-3xl bg-gray-800 rounded-2xl border border-gray-700 p-6 md:p-10">
-        {submitSuccess && (
-          <div className="mb-6 rounded-lg bg-emerald-900/80 border border-emerald-700 px-4 py-3 text-center">
-            <p className="text-emerald-200 font-semibold">{submitSuccess}</p>
-            {lastSubmittedSerial && (
-              <p className="text-emerald-100/90 text-sm mt-1">
-                Form Code: <span className="font-medium">{formCode}</span>
-                {" · "}
-                Serial No: <span className="font-medium">{lastSubmittedSerial}</span>
-              </p>
-            )}
+    <div className="min-h-screen">
+      {/* Custom Navigation / Header */}
+      <nav className="bg-gray-800 border-b border-gray-700 sticky top-0 z-50 py-4 px-4 shadow-lg">
+        <div className="container mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-4">
+          <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+            <div className="rounded-lg">
+              <Image
+                src="/image/logo.png"
+                alt="OCEANE GROUP Logo"
+                width={120}
+                height={60}
+                className="object-contain"
+              />
+            </div>
+          </Link>
+
+          <div className="flex-1 flex justify-center">
+            <h1 className="text-2xl lg:text-3xl xl:text-4xl font-bold text-white text-center">
+              Near Miss / Incident &amp; Injury Reporting
+            </h1>
           </div>
-        )}
-        <>
-            <header className="mb-6 border-b border-gray-700 pb-4">
-              <div className="flex flex-wrap items-center gap-4 text-sm mb-2">
-                <span className="text-gray-400">Form Code:</span>
-                <span className="font-semibold text-white">{formCode}</span>
+
+          <div className="bg-gray-700 rounded-lg p-3 border border-gray-600 min-w-[250px] w-full md:w-auto">
+            <div className="text-sm space-y-1 text-gray-300">
+              <div className="flex justify-between gap-4">
+                <span>Form Code:</span>
+                <span className="text-white font-semibold">{formCode}</span>
               </div>
-              <p className="text-orange-400 font-semibold">Oceane Group</p>
-              <h1 className="text-2xl md:text-3xl font-bold text-white">
-                Near Miss / Incident &amp; Injury Reporting
-              </h1>
-              <p className="mt-2 text-sm text-gray-300 leading-relaxed">
+              <div className="flex justify-between gap-4">
+                <span>Rev.No.:</span>
+                <span className="text-white font-semibold">1.0</span>
+              </div>
+              <div className="flex justify-between gap-4">
+                <span>Rev Date:</span>
+                <span className="text-white font-semibold">N/A</span>
+              </div>
+              <div className="flex justify-between gap-4">
+                <span>Approved by:</span>
+                <span className="text-white font-semibold">JS</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <div className="relative min-h-screen">
+        {/* Background Overlay */}
+        <div
+          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed opacity-30 filter blur-xs"
+          style={{ backgroundImage: 'url("/image/ship-bg.jpg")' }}
+        ></div>
+
+        <div className="container relative z-10 mx-auto px-4 py-8 max-w-3xl">
+          {submitSuccess && (
+            <div className="mb-6 rounded-lg bg-emerald-900/80 border border-emerald-700 px-4 py-3 text-center">
+              <p className="text-emerald-200 font-semibold">{submitSuccess}</p>
+              {lastSubmittedSerial && (
+                <p className="text-emerald-100/90 text-sm mt-1">
+                  Form Code: <span className="font-medium">{formCode}</span>
+                  {" · "}
+                  Serial No: <span className="font-medium">{lastSubmittedSerial}</span>
+                </p>
+              )}
+            </div>
+          )}
+
+          <div className="bg-gray-800/90 backdrop-blur-sm rounded-2xl border border-gray-700 p-6 md:p-10 shadow-xl">
+              <p className="text-gray-300 text-sm mb-4 italic">
                 When you submit this form, it will not automatically collect
                 your details like name and email address unless you provide it
                 yourself.
               </p>
-              <p className="mt-1 text-xs text-red-400 font-medium">
+              <p className="mb-6 text-xs text-red-400 font-medium">
                 * Required
               </p>
-            </header>
 
             <form className="space-y-6" onSubmit={handleSubmit}>
               {/* 1. Job Ref # */}
@@ -429,8 +473,9 @@ export default function NearMissFormPage() {
                 {submitting ? "Submitting..." : "Submit"}
               </button>
             </form>
-        </>
+          </div>
+        </div>
       </div>
-    </main>
+    </div>
   );
 }
