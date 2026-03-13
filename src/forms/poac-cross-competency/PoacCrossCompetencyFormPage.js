@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { getFormConfig } from "@/lib/qhseFormConfig";
 import {
   POAC_EVALUATION_ITEMS,
@@ -271,35 +272,69 @@ export default function PoacCrossCompetencyFormPage() {
       hasError ? "border-red-500" : "border-gray-600"
     }`;
   const labelClass = "block text-xs font-medium text-gray-300 mb-1.5";
-  const sectionClass = "bg-gray-800 rounded-2xl p-6 border border-gray-700";
+  const sectionClass = "bg-gray-800/90 backdrop-blur-sm rounded-2xl p-6 border border-gray-700 shadow-xl";
   const sectionTitleClass = "text-lg font-bold text-white mb-4";
 
   return (
     <div className="min-h-screen">
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
-        <header className={sectionClass + " mb-6"}>
-          <p className="text-xs uppercase tracking-wider text-gray-400 mb-1">QHSE / POAC Cross Competency</p>
-          <h1 className="text-2xl font-bold text-white mb-2">POAC Cross Competency</h1>
-          <p className="text-sm text-gray-300 mb-4">
-            Complete this evaluation form. Form Code and Serial Number are auto-generated on submit. View the list in the main Oceane Marine app.
-          </p>
-          <div className="flex flex-wrap gap-6 text-sm">
-              <div>
-                <span className="text-gray-400">Form Code:</span>{" "}
-                <span className="font-semibold text-white">{loadingCode ? "..." : (displayFormCode || "QAF-OFD-009")}</span>
-              </div>
-              <div>
-                <span className="text-gray-400">Version:</span>{" "}
-                <span className="font-semibold text-white">{loadingCode ? "..." : displayVersion}</span>
+      {/* Custom Navigation / Header */}
+      <nav className="bg-gray-800 border-b border-gray-700 sticky top-0 z-50 py-4 px-4 shadow-lg">
+        <div className="container mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-4">
+          <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+            <div className="rounded-lg">
+              <Image
+                src="/image/logo.png"
+                alt="OCEANE GROUP Logo"
+                width={120}
+                height={60}
+                className="object-contain"
+              />
+            </div>
+          </Link>
+
+          <div className="flex-1 flex justify-center">
+            <h1 className="text-2xl lg:text-3xl xl:text-4xl font-bold text-white text-center">
+              POAC Cross Competency
+            </h1>
+          </div>
+
+          <div className="bg-gray-700 rounded-lg p-3 border border-gray-600 min-w-[250px] w-full md:w-auto">
+            <div className="text-sm space-y-1 text-gray-300">
+              <div className="flex justify-between gap-4">
+                <span>Form Code:</span>
+                <span className="text-white font-semibold">{loadingCode ? <span className="text-gray-400 animate-pulse">Loading...</span> : (displayFormCode || "QAF-OFD-009")}</span>
               </div>
               {submitResult?.serialNumber && (
-                <div>
-                  <span className="text-gray-400">Serial:</span>{" "}
-                  <span className="font-semibold text-white">{submitResult.serialNumber}</span>
+                <div className="flex justify-between gap-4">
+                  <span>Serial No:</span>
+                  <span className="text-white font-semibold">{submitResult.serialNumber}</span>
                 </div>
               )}
+              <div className="flex justify-between gap-4">
+                <span>Rev.No.:</span>
+                <span className="text-white font-semibold">{loadingCode ? <span className="text-gray-400 animate-pulse">Loading...</span> : displayVersion}</span>
+              </div>
+              <div className="flex justify-between gap-4">
+                <span>Rev Date:</span>
+                <span className="text-white font-semibold">N/A</span>
+              </div>
+              <div className="flex justify-between gap-4">
+                <span>Approved by:</span>
+                <span className="text-white font-semibold">JS</span>
+              </div>
             </div>
-        </header>
+          </div>
+        </div>
+      </nav>
+
+      <div className="relative min-h-screen">
+        {/* Background Overlay */}
+        <div
+          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed opacity-30 filter blur-xs"
+          style={{ backgroundImage: 'url("/image/ship-bg.jpg")' }}
+        ></div>
+
+        <div className="container relative z-10 mx-auto px-4 py-8 max-w-3xl">
 
         {error && (
           <div className="text-sm text-red-300 bg-red-900 border border-red-700 rounded-lg px-4 py-3 mb-6">
@@ -573,6 +608,7 @@ export default function PoacCrossCompetencyFormPage() {
             </button>
           </div>
         </form>
+        </div>
       </div>
     </div>
   );

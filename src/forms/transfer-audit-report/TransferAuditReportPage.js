@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
 import { getFormConfig } from "@/lib/qhseFormConfig";
 
 const QuestionComponent = ({
@@ -560,9 +562,9 @@ export default function TransferAuditReportPage() {
   };
 
   return (
-    <div className="min-h-screen futuristic-bg">
+    <div className="min-h-screen">
       {isLoading && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[60]">
           <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
             <div className="flex items-center gap-4">
               <svg
@@ -592,187 +594,120 @@ export default function TransferAuditReportPage() {
           </div>
         </div>
       )}
-      <div className="container mx-auto px-4 py-8 max-w-7xl">
-        {submitSuccess && (
-          <div className="mb-6 text-base text-emerald-300 bg-emerald-900/90 border border-emerald-700 rounded-lg px-6 py-4">
-            <span className="font-semibold">{submitSuccess}</span>
-          </div>
-        )}
-        {/* Header Section */}
-        <div className="bg-gray-800 rounded-2xl mb-8 p-8 border border-gray-700">
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <h1 className="text-4xl font-bold text-white">
-                STS Transfer Audit Report
-              </h1>
+
+      {/* Custom Navigation / Header */}
+      <nav className="bg-gray-800 border-b border-gray-700 sticky top-0 z-50 py-4 px-4 shadow-lg">
+        <div className="container mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-4">
+          <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+            <div className="rounded-lg">
+              <Image
+                src="/image/logo.png"
+                alt="OCEANE GROUP Logo"
+                width={120}
+                height={60}
+                className="object-contain"
+              />
             </div>
-            <div className="bg-gray-700 rounded-lg p-4 border border-gray-600">
-              <div className="text-sm space-y-1 text-gray-300">
-                <div className="flex justify-between gap-4">
-                  <span>Form Code:</span>
-                  <span className="text-white font-semibold">
-                    {isLoading ? <span className="text-gray-400 animate-pulse">Loading...</span> : (formCode || config?.formCode || "QAF-OFD-003")}
-                  </span>
-                </div>
-                {serialNumber && (
-                  <div className="flex justify-between gap-4">
-                    <span>Serial No:</span>
-                    <span className="text-white font-semibold">{serialNumber}</span>
-                  </div>
-                )}
-                <div className="flex justify-between gap-4">
-                  <span>Rev.No.:</span>
-                  <span className="text-white font-semibold">
-                    {(() => {
-                      if (isLoading) {
-                        return (
-                          <span className="text-gray-400 animate-pulse">
-                            Loading...
-                          </span>
-                        );
-                      }
-                      return version || "1.2";
-                    })()}
-                  </span>
-                </div>
-                <div className="flex justify-between gap-4">
-                  <span>Rev Date:</span>
-                  <span className="text-white font-semibold">
-                    {(() => {
-                      if (isLoading) {
-                        return (
-                          <span className="text-gray-400 animate-pulse">
-                            Loading...
-                          </span>
-                        );
-                      }
-                      if (revisionDate) {
-                        return new Date(revisionDate).toLocaleDateString(
-                          "en-GB",
-                          {
-                            day: "numeric",
-                            month: "long",
-                            year: "numeric",
-                          }
-                        );
-                      }
-                      return "16 January 2025";
-                    })()}
-                  </span>
-                </div>
-                <div className="flex justify-between gap-4">
-                  <span>Approved by:</span>
-                  <span className="text-white font-semibold">JS</span>
-                </div>
-                <div className="flex justify-between gap-4">
-                  <span>Page:</span>
-                  <span className="text-white font-semibold">1 of 3</span>
-                </div>
-              </div>
-            </div>
+          </Link>
+
+          <div className="flex-1 flex justify-center">
+            <h1 className="text-2xl lg:text-3xl xl:text-4xl font-bold text-white text-center">
+              STS Transfer Audit Report
+            </h1>
           </div>
 
-          <p className="text-gray-300 text-sm mb-6 italic">
-            An STS Transfer Audit shall be conducted by an active POAC whilst on
-            an operation for each base, annually as a minimum, or upon request.
-          </p>
-
-          {/* General Information */}
-          <div className="bg-gray-700 rounded-lg p-4 mb-4 border border-gray-600">
-            <h2 className="text-xl font-bold text-white mb-4">
-              General Information
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label
-                  htmlFor="locationName"
-                  className="block text-white text-sm font-medium mb-2"
-                >
-                  Location name
-                </label>
-                <input
-                  id="locationName"
-                  type="text"
-                  value={formData.header.locationName}
-                  onChange={(e) => updateHeader("locationName", e.target.value)}
-                  className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400 transition-all"
-                  placeholder="Enter location name"
-                />
+          <div className="bg-gray-700 rounded-lg p-3 border border-gray-600 min-w-[250px] w-full md:w-auto">
+            <div className="text-sm space-y-1 text-gray-300">
+              <div className="flex justify-between gap-4">
+                <span>Form Code:</span>
+                <span className="text-white font-semibold">
+                  {isLoading ? <span className="text-gray-400 animate-pulse">Loading...</span> : (formCode || config?.formCode || "QAF-OFD-003")}
+                </span>
               </div>
-              <div>
-                <label
-                  htmlFor="date"
-                  className="block text-white text-sm font-medium mb-2"
-                >
-                  Date
-                </label>
-                <input
-                  id="date"
-                  type="date"
-                  value={formData.header.date}
-                  onChange={(e) => updateHeader("date", e.target.value)}
-                  className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400 transition-all"
-                />
+              {serialNumber && (
+                <div className="flex justify-between gap-4">
+                  <span>Serial No:</span>
+                  <span className="text-white font-semibold">{serialNumber}</span>
+                </div>
+              )}
+              <div className="flex justify-between gap-4">
+                <span>Rev.No.:</span>
+                <span className="text-white font-semibold">
+                  {isLoading ? <span className="text-gray-400 animate-pulse">Loading...</span> : (version || "1.2")}
+                </span>
               </div>
-              <div>
-                <label
-                  htmlFor="jobNo"
-                  className="block text-white text-sm font-medium mb-2"
-                >
-                  Job no.
-                </label>
-                <input
-                  id="jobNo"
-                  type="text"
-                  value={formData.header.jobNo}
-                  onChange={(e) => updateHeader("jobNo", e.target.value)}
-                  className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400 transition-all"
-                  placeholder="Enter job number"
-                />
+              <div className="flex justify-between gap-4">
+                <span>Rev Date:</span>
+                <span className="text-white font-semibold">
+                  {(() => {
+                    if (isLoading) return <span className="text-gray-400 animate-pulse">Loading...</span>;
+                    if (revisionDate) return new Date(revisionDate).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+                    return "N/A";
+                  })()}
+                </span>
               </div>
-              <div>
-                <label
-                  htmlFor="dischargingVessel"
-                  className="block text-white text-sm font-medium mb-2"
-                >
-                  Discharging vessel
-                </label>
-                <input
-                  id="dischargingVessel"
-                  type="text"
-                  value={formData.header.dischargingVessel}
-                  onChange={(e) =>
-                    updateHeader("dischargingVessel", e.target.value)
-                  }
-                  className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400 transition-all"
-                  placeholder="Enter discharging vessel"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="receivingVessel"
-                  className="block text-white text-sm font-medium mb-2"
-                >
-                  Receiving vessel
-                </label>
-                <input
-                  id="receivingVessel"
-                  type="text"
-                  value={formData.header.receivingVessel}
-                  onChange={(e) =>
-                    updateHeader("receivingVessel", e.target.value)
-                  }
-                  className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400 transition-all"
-                  placeholder="Enter receiving vessel"
-                />
+              <div className="flex justify-between gap-4">
+                <span>Approved by:</span>
+                <span className="text-white font-semibold">JS</span>
               </div>
             </div>
           </div>
         </div>
+      </nav>
+
+      <div className="relative min-h-screen">
+        {/* Background Overlay */}
+        <div
+          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed opacity-30 filter blur-xs"
+          style={{ backgroundImage: 'url("/image/ship-bg.jpg")' }}
+        ></div>
+
+        <div className="container relative z-10 mx-auto px-4 py-8 max-w-3xl">
+          {submitSuccess && (
+            <div className="mb-6 text-base text-emerald-300 bg-emerald-900/90 border border-emerald-700 rounded-lg px-6 py-4">
+              <span className="font-semibold">{submitSuccess}</span>
+            </div>
+          )}
+
+          {/* General Information Section */}
+          <div className="bg-gray-800/90 backdrop-blur-sm rounded-2xl mb-8 p-8 border border-gray-700 shadow-xl">
+            <p className="text-gray-300 text-sm mb-6 italic">
+              An STS Transfer Audit shall be conducted by an active POAC whilst on
+              an operation for each base, annually as a minimum, or upon request.
+            </p>
+
+            <div className="bg-gray-700/80 rounded-lg p-4 mb-4 border border-gray-600">
+              <h2 className="text-xl font-bold text-white mb-4">
+                General Information
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="locationName" className="block text-white text-sm font-medium mb-2">Location name</label>
+                  <input id="locationName" type="text" value={formData.header.locationName} onChange={(e) => updateHeader("locationName", e.target.value)} className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-gray-400 transition-all" placeholder="Enter location name" />
+                </div>
+                <div>
+                  <label htmlFor="date" className="block text-white text-sm font-medium mb-2">Date</label>
+                  <input id="date" type="date" value={formData.header.date} onChange={(e) => updateHeader("date", e.target.value)} className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-gray-400 transition-all" />
+                </div>
+                <div>
+                  <label htmlFor="jobNo" className="block text-white text-sm font-medium mb-2">Job no.</label>
+                  <input id="jobNo" type="text" value={formData.header.jobNo} onChange={(e) => updateHeader("jobNo", e.target.value)} className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-gray-400 transition-all" placeholder="Enter job number" />
+                </div>
+                <div>
+                  <label htmlFor="dischargingVessel" className="block text-white text-sm font-medium mb-2">Discharging vessel</label>
+                  <input id="dischargingVessel" type="text" value={formData.header.dischargingVessel} onChange={(e) => updateHeader("dischargingVessel", e.target.value)} className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-gray-400 transition-all" placeholder="Enter discharging vessel" />
+                </div>
+                <div>
+                  <label htmlFor="receivingVessel" className="block text-white text-sm font-medium mb-2">Receiving vessel</label>
+                  <input id="receivingVessel" type="text" value={formData.header.receivingVessel} onChange={(e) => updateHeader("receivingVessel", e.target.value)} className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-gray-400 transition-all" placeholder="Enter receiving vessel" />
+                </div>
+              </div>
+            </div>
+          </div>
 
         <form onSubmit={handleSubmit} className="space-y-8">
           {/* Section A - Pre-planning */}
-          <div className="bg-gray-800 rounded-2xl p-8 border border-gray-700">
+          <div className="bg-gray-800/90 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 shadow-xl">
             <div className="bg-gray-700 rounded-lg p-4 mb-6 border border-gray-600">
               <h2 className="text-2xl font-bold text-white">A Pre-planning</h2>
             </div>
@@ -1103,6 +1038,7 @@ export default function TransferAuditReportPage() {
             </button>
           </div>
         </form>
+        </div>
       </div>
     </div>
   );
