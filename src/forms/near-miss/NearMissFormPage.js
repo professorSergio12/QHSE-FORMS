@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { getFormConfig } from "@/lib/qhseFormConfig";
+import { getFormConfig, QHSE_FIXED_FORM_CODES } from "@/lib/qhseFormConfig";
 
 const AREA_OPTIONS = [
   "Main Deck",
@@ -39,7 +39,7 @@ const TYPE_OPTIONS = [
 export default function NearMissFormPage() {
   const router = useRouter();
   const config = getFormConfig("near-miss");
-  const formCode = config?.formCode || "QAF-OFD-015";
+  const formCode = config?.formCode || QHSE_FIXED_FORM_CODES.NEAR_MISS_INCIDENT;
   const [form, setForm] = useState({
     jobRef: "",
     vesselName: "",
@@ -73,15 +73,29 @@ export default function NearMissFormPage() {
     setSubmitSuccess("");
 
     try {
-      // Validate required fields
+      // Match Oceane Marine NearMiss schema (required fields + enums)
       if (
-        !form.jobRef ||
-        !form.vesselName ||
+        !form.jobRef?.trim() ||
+        !form.vesselName?.trim() ||
+        !form.date ||
+        !form.observerName?.trim() ||
         !form.position ||
-        !form.email ||
-        !form.typeOfReporting
+        !form.email?.trim() ||
+        !form.typeOfReporting ||
+        !form.area ||
+        !form.description?.trim() ||
+        !form.immediateCause?.trim() ||
+        !form.rootCause?.trim() ||
+        !form.correctiveAction?.trim()
       ) {
         setSubmitError("Please fill all required fields marked with *");
+        setSubmitting(false);
+        return;
+      }
+
+      const incidentDate = new Date(form.date);
+      if (Number.isNaN(incidentDate.getTime())) {
+        setSubmitError("Please enter a valid date.");
         setSubmitting(false);
         return;
       }
@@ -89,7 +103,7 @@ export default function NearMissFormPage() {
       const payload = {
         JobRefNo: form.jobRef.trim(),
         VesselName: form.vesselName.trim(),
-        timeOfIncident: form.date,
+        timeOfIncident: incidentDate.toISOString(),
         NameOfObserver: form.observerName.trim(),
         PositionOfObserver: form.position,
         email: form.email.trim(),
@@ -109,10 +123,22 @@ export default function NearMissFormPage() {
         body: JSON.stringify(payload),
       });
 
-      const responseData = await res.json().catch(() => ({}));
+      const responseText = await res.text();
+      let responseData = {};
+      try {
+        responseData = responseText ? JSON.parse(responseText) : {};
+      } catch {
+        throw new Error(
+          res.ok
+            ? "Invalid response from server."
+            : `Server error: ${res.status}. ${responseText.slice(0, 120)}`
+        );
+      }
       if (!res.ok) {
         throw new Error(
-          responseData.error || responseData.message || `Server error: ${res.status} ${res.statusText}`
+          responseData.error ||
+            responseData.message ||
+            `Server error: ${res.status} ${res.statusText}`
         );
       }
 

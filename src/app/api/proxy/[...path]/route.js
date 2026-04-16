@@ -1,8 +1,22 @@
 /**
  * Proxies API requests to the backend. Use from the frontend as /api/proxy/qhse/...
  * so the browser hits same origin (avoids CORS). Server forwards to NEXT_PUBLIC_API_BASE_URL.
+ *
+ * External forms are anonymous (no login here). The main app must allow those POST URLs
+ * without a session — see Oceane-Marine `middleware.js` → `PUBLIC_EXTERNAL_FORM_POST_ROUTES`.
+ *
+ * Env: use the main app origin (e.g. http://localhost:3000) OR include /api
+ * (e.g. http://localhost:3000/api). The proxy normalizes so paths are not doubled.
  */
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "";
+
+function buildBackendUrl(baseUrlRaw, pathSegment) {
+  const trimmed = baseUrlRaw.replace(/\/$/, "");
+  if (trimmed.endsWith("/api")) {
+    return `${trimmed}/${pathSegment}`;
+  }
+  return `${trimmed}/api/${pathSegment}`;
+}
 
 export async function GET(request, context) {
   const params = await context.params;
@@ -39,7 +53,7 @@ async function proxy(request, params) {
 
   const path = params.path;
   const pathSegment = Array.isArray(path) ? path.join("/") : path;
-  const url = `${baseUrl.replace(/\/$/, "")}/api/${pathSegment}`;
+  const url = buildBackendUrl(baseUrl, pathSegment);
 
   try {
     const headers = new Headers();

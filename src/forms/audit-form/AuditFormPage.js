@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { getFormConfig } from "@/lib/qhseFormConfig";
+import { getFormConfig, QHSE_FIXED_FORM_CODES } from "@/lib/qhseFormConfig";
 
 const ISO_CERTIFICATIONS = [
   "ISO 9001",
@@ -16,11 +16,10 @@ const ISO_CERTIFICATIONS = [
 
 export default function AuditFormPage() {
   const config = getFormConfig("audit-form");
-  const [formCode, setFormCode] = useState("");
+  const formCode = config?.formCode || QHSE_FIXED_FORM_CODES.SUB_CONTRACTOR_AUDIT;
+  const version = "1.0";
+  const revisionDate = new Date().toLocaleDateString();
   const [serialNumber, setSerialNumber] = useState("");
-  const [version, setVersion] = useState("");
-  const [revisionDate, setRevisionDate] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -55,52 +54,6 @@ export default function AuditFormPage() {
       signaturePhoto: null,
     },
   });
-
-  // Fetch form code on mount (proxy to main app; fallback to config)
-  useEffect(() => {
-    let cancelled = false;
-    const fetchCode = async () => {
-      try {
-        setIsLoading(true);
-        const codePath = config?.codePath;
-        if (codePath) {
-          const res = await fetch(`/api/proxy/${codePath}`, {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
-          });
-          if (cancelled) return;
-          if (res.ok) {
-            const data = await res.json();
-            setFormCode(data.formCode || config?.formCode || "");
-            setVersion(data.version || "1.0");
-            setRevisionDate(
-              data.revisionDate
-                ? new Date(data.revisionDate).toLocaleDateString()
-                : new Date().toLocaleDateString()
-            );
-          } else {
-            setFormCode(config?.formCode || "");
-            setVersion("1.0");
-            setRevisionDate(new Date().toLocaleDateString());
-          }
-        } else {
-          setFormCode(config?.formCode || "");
-          setVersion("1.0");
-          setRevisionDate(new Date().toLocaleDateString());
-        }
-      } catch (e) {
-        if (!cancelled) {
-          setFormCode(config?.formCode || "");
-          setVersion("1.0");
-          setRevisionDate(new Date().toLocaleDateString());
-        }
-      } finally {
-        if (!cancelled) setIsLoading(false);
-      }
-    };
-    fetchCode();
-    return () => { cancelled = true; };
-  }, [config?.codePath, config?.formCode]);
 
   const handleInputChange = (field, value) => {
     setFormData((prev) => ({
@@ -283,16 +236,6 @@ export default function AuditFormPage() {
     }
   };
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center space-y-4">
-          <div className="inline-block h-12 w-12 animate-spin rounded-full border-4 border-solid border-orange-500 border-r-transparent"></div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen">
       {/* Custom Navigation / Header Header for this page */}
@@ -321,7 +264,7 @@ export default function AuditFormPage() {
               <div className="flex justify-between gap-4">
                 <span>Form Code:</span>
                 <span className="text-white font-semibold">
-                  {isLoading ? <span className="text-gray-400 animate-pulse">Loading...</span> : (formCode || config?.formCode || "—")}
+                  {formCode || config?.formCode || "—"}
                 </span>
               </div>
               {serialNumber && (
@@ -333,31 +276,13 @@ export default function AuditFormPage() {
               <div className="flex justify-between gap-4">
                 <span>Version:</span>
                 <span className="text-white font-semibold">
-                  {(() => {
-                    if (isLoading) {
-                      return (
-                        <span className="text-gray-400 animate-pulse">
-                          Loading...
-                        </span>
-                      );
-                    }
-                    return version || "—";
-                  })()}
+                  {version || "—"}
                 </span>
               </div>
               <div className="flex justify-between gap-4">
                 <span>Rev Date:</span>
                 <span className="text-white font-semibold">
-                  {(() => {
-                    if (isLoading) {
-                      return (
-                        <span className="text-gray-400 animate-pulse">
-                          Loading...
-                        </span>
-                      );
-                    }
-                    return revisionDate || "N/A";
-                  })()}
+                  {revisionDate || "N/A"}
                 </span>
               </div>
               <div className="flex justify-between gap-4">

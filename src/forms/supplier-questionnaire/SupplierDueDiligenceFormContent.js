@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { getFormConfig } from "@/lib/qhseFormConfig";
+import { getFormConfig, QHSE_FIXED_FORM_CODES } from "@/lib/qhseFormConfig";
 
 export default function SupplierDueDiligenceFormContent() {
   const [form, setForm] = useState({
@@ -89,40 +89,15 @@ export default function SupplierDueDiligenceFormContent() {
   });
 
   const config = getFormConfig("supplier-questionnaire");
-  const defaultFormCode = config?.formCode || "QAF-OFD-043";
+  const defaultFormCode =
+    config?.formCode || QHSE_FIXED_FORM_CODES.SUPPLIER_DUE_DILIGENCE;
 
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [formCode, setFormCode] = useState(defaultFormCode);
+  const formCode = defaultFormCode;
+  const version = "1.0";
   const [serialNumber, setSerialNumber] = useState("");
-  const [version, setVersion] = useState("1.0");
-
-  // Optionally fetch latest form code from backend on mount (form already shows with default)
-  useEffect(() => {
-    let cancelled = false;
-    const codePath = config?.codePath;
-    if (!codePath) return;
-    fetch(`/api/proxy/${codePath}`, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => {
-        if (cancelled || !res.ok) return res.text().then(() => ({}));
-        return res.json();
-      })
-      .then((data) => {
-        if (cancelled) return;
-        if (data?.formCode || data?.code) {
-          setFormCode(data.formCode || data.code || defaultFormCode);
-          if (data.version) setVersion(data.version);
-        }
-      })
-      .catch(() => {
-        if (!cancelled) setFormCode(defaultFormCode);
-      });
-    return () => { cancelled = true; };
-  }, [config?.codePath, defaultFormCode]);
 
   const handleChange = (path, value) => {
     const keys = path.split(".");
@@ -207,16 +182,28 @@ export default function SupplierDueDiligenceFormContent() {
     setSuccess("");
 
     try {
+      const sd = { ...form.supplierDetails };
+      const ecRaw = sd.employeeCount;
+      if (
+        ecRaw === "" ||
+        ecRaw == null ||
+        String(ecRaw).trim() === ""
+      ) {
+        delete sd.employeeCount;
+      } else {
+        const n = Number(ecRaw);
+        if (!Number.isNaN(n)) sd.employeeCount = n;
+        else delete sd.employeeCount;
+      }
+      sd.paymentTerms =
+        sd.paymentTerms === "Other" ? sd.paymentTermsOther : sd.paymentTerms;
+
       const payload = {
         formCode,
         version,
         ...form,
         supplierDetails: {
-          ...form.supplierDetails,
-          paymentTerms:
-            form.supplierDetails.paymentTerms === "Other"
-              ? form.supplierDetails.paymentTermsOther
-              : form.supplierDetails.paymentTerms,
+          ...sd,
         },
         complianceDetails: {
           ...form.complianceDetails,

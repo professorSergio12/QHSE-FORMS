@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { getFormConfig } from "@/lib/qhseFormConfig";
+import { getFormConfig, QHSE_FIXED_FORM_CODES } from "@/lib/qhseFormConfig";
 import {
   POAC_EVALUATION_ITEMS,
   EVALUATION_CATEGORIES,
@@ -17,6 +17,7 @@ const initialEvaluationItems = POAC_EVALUATION_ITEMS.map((item) => ({
 }));
 
 export default function PoacCrossCompetencyFormPage() {
+  const config = getFormConfig("poac-cross-competency");
   const [form, setForm] = useState({
     nameOfPOAC: "",
     evaluationDate: "",
@@ -44,44 +45,13 @@ export default function PoacCrossCompetencyFormPage() {
   });
 
   const [submitting, setSubmitting] = useState(false);
-  const [loadingCode, setLoadingCode] = useState(true);
-  const [displayFormCode, setDisplayFormCode] = useState("QAF-OFD-009");
-  const [displayVersion, setDisplayVersion] = useState("1.0");
+  const displayFormCode =
+    config?.formCode || QHSE_FIXED_FORM_CODES.POAC_CROSS_COMPETENCY;
+  const displayVersion = "1.0";
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
   const [validationErrors, setValidationErrors] = useState({});
   const [submitResult, setSubmitResult] = useState(null);
-
-  // Fetch form code and version on load (auto serial is created on backend on submit)
-  useEffect(() => {
-    let cancelled = false;
-    const fetchCode = async () => {
-      try {
-        setLoadingCode(true);
-        const res = await fetch(
-          "/api/proxy/qhse/cross-competency/code",
-          { method: "GET", headers: { "Content-Type": "application/json" } }
-        );
-        if (cancelled) return;
-        if (res.ok) {
-          const data = await res.json();
-          const config = getFormConfig("poac-cross-competency");
-          setDisplayFormCode(data.formCode || config?.formCode || "QAF-OFD-009");
-          setDisplayVersion(data.version || "1.0");
-        }
-      } catch (_) {
-        if (!cancelled) {
-          const config = getFormConfig("poac-cross-competency");
-          setDisplayFormCode(config?.formCode || "QAF-OFD-009");
-          setDisplayVersion("1.0");
-        }
-      } finally {
-        if (!cancelled) setLoadingCode(false);
-      }
-    };
-    fetchCode();
-    return () => { cancelled = true; };
-  }, []);
 
   const handleChange = (field, value) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -302,7 +272,7 @@ export default function PoacCrossCompetencyFormPage() {
             <div className="text-sm space-y-1 text-gray-300">
               <div className="flex justify-between gap-4">
                 <span>Form Code:</span>
-                <span className="text-white font-semibold">{loadingCode ? <span className="text-gray-400 animate-pulse">Loading...</span> : (displayFormCode || "QAF-OFD-009")}</span>
+                <span className="text-white font-semibold">{displayFormCode}</span>
               </div>
               {submitResult?.serialNumber && (
                 <div className="flex justify-between gap-4">
@@ -312,7 +282,7 @@ export default function PoacCrossCompetencyFormPage() {
               )}
               <div className="flex justify-between gap-4">
                 <span>Rev.No.:</span>
-                <span className="text-white font-semibold">{loadingCode ? <span className="text-gray-400 animate-pulse">Loading...</span> : displayVersion}</span>
+                <span className="text-white font-semibold">{displayVersion}</span>
               </div>
               <div className="flex justify-between gap-4">
                 <span>Rev Date:</span>

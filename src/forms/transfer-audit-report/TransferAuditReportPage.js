@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { getFormConfig } from "@/lib/qhseFormConfig";
+import { getFormConfig, QHSE_FIXED_FORM_CODES } from "@/lib/qhseFormConfig";
 
 const QuestionComponent = ({
   question,
@@ -106,18 +106,17 @@ const TextQuestionComponent = ({
 
 export default function TransferAuditReportPage() {
   const config = getFormConfig("transfer-audit-report");
-  const [formCode, setFormCode] = useState("");
+  const formCode = config?.formCode || QHSE_FIXED_FORM_CODES.STS_TRANSFER_AUDIT;
+  const version = "1.0";
+  const revisionDate = new Date().toLocaleDateString();
   const [serialNumber, setSerialNumber] = useState("");
-  const [version, setVersion] = useState(1);
-  const [revisionDate, setRevisionDate] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState("");
 
   const [formData, setFormData] = useState({
-    formCode: "",
-    version: "",
-    revisionDate: "",
+    formCode: formCode || QHSE_FIXED_FORM_CODES.STS_TRANSFER_AUDIT,
+    version,
+    revisionDate,
     header: {
       locationName: "",
       date: "",
@@ -453,59 +452,8 @@ export default function TransferAuditReportPage() {
     updateCompletedBy("signature", "");
   };
 
-  // Fetch form code on mount (proxy; fallback from config)
-  useEffect(() => {
-    let cancelled = false;
-    const fetchCode = async () => {
-      try {
-        setIsLoading(true);
-        const codePath = config?.codePath;
-        if (codePath) {
-          const res = await fetch(`/api/proxy/${codePath}`, {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
-          });
-          if (cancelled) return;
-          if (res.ok) {
-            const data = await res.json();
-            const fc = data.formCode || config?.formCode || "";
-            setFormCode(fc);
-            setVersion(data.version || "1.0");
-            setRevisionDate(data.revisionDate || "");
-            setFormData((prev) => ({
-              ...prev,
-              formCode: fc,
-              version: data.version || "1.0",
-              revisionDate: data.revisionDate || "",
-            }));
-          } else {
-            setFormCode(config?.formCode || "");
-            setVersion("1.0");
-          }
-        } else {
-          setFormCode(config?.formCode || "");
-          setVersion("1.0");
-        }
-      } catch (e) {
-        if (!cancelled) {
-          setFormCode(config?.formCode || "");
-          setVersion("1.0");
-        }
-      } finally {
-        if (!cancelled) setIsLoading(false);
-      }
-    };
-    fetchCode();
-    return () => { cancelled = true; };
-  }, [config?.codePath, config?.formCode]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!formCode) {
-      alert("Form code is not generated. Please wait...");
-      return;
-    }
 
     setSubmitSuccess("");
     setIsSubmitting(true);
@@ -525,7 +473,17 @@ export default function TransferAuditReportPage() {
         body: JSON.stringify(submitData),
       });
 
-      const result = await response.json().catch(() => ({}));
+      const responseText = await response.text();
+      let result = {};
+      try {
+        result = responseText ? JSON.parse(responseText) : {};
+      } catch {
+        throw new Error(
+          response.ok
+            ? "Invalid response from server."
+            : `Request failed (${response.status}). ${responseText.slice(0, 120)}`
+        );
+      }
       if (!response.ok) {
         const msg = result?.error || result?.message || `Server error: ${response.status}`;
         throw new Error(msg);
@@ -563,38 +521,6 @@ export default function TransferAuditReportPage() {
 
   return (
     <div className="min-h-screen">
-      {isLoading && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[60]">
-          <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
-            <div className="flex items-center gap-4">
-              <svg
-                className="animate-spin h-8 w-8 text-gray-400"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <circle
-                  className="opacity-25"
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                ></circle>
-                <path
-                  className="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                ></path>
-              </svg>
-              <span className="text-white text-lg">
-                Generating form code...
-              </span>
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* Custom Navigation / Header */}
       <nav className="bg-gray-800 border-b border-gray-700 sticky top-0 z-50 py-4 px-4 shadow-lg">
         <div className="container mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-4">
@@ -621,7 +547,7 @@ export default function TransferAuditReportPage() {
               <div className="flex justify-between gap-4">
                 <span>Form Code:</span>
                 <span className="text-white font-semibold">
-                  {isLoading ? <span className="text-gray-400 animate-pulse">Loading...</span> : (formCode || config?.formCode || "QAF-OFD-003")}
+                  {formCode || config?.formCode || QHSE_FIXED_FORM_CODES.STS_TRANSFER_AUDIT}
                 </span>
               </div>
               {serialNumber && (
@@ -633,17 +559,24 @@ export default function TransferAuditReportPage() {
               <div className="flex justify-between gap-4">
                 <span>Rev.No.:</span>
                 <span className="text-white font-semibold">
-                  {isLoading ? <span className="text-gray-400 animate-pulse">Loading...</span> : (version || "1.2")}
+                  {version || "1.0"}
                 </span>
               </div>
               <div className="flex justify-between gap-4">
                 <span>Rev Date:</span>
                 <span className="text-white font-semibold">
-                  {(() => {
-                    if (isLoading) return <span className="text-gray-400 animate-pulse">Loading...</span>;
-                    if (revisionDate) return new Date(revisionDate).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
-                    return "N/A";
-                  })()}
+                  {revisionDate
+                    ? (() => {
+                        const d = new Date(revisionDate);
+                        return Number.isNaN(d.getTime())
+                          ? revisionDate
+                          : d.toLocaleDateString("en-GB", {
+                              day: "numeric",
+                              month: "long",
+                              year: "numeric",
+                            });
+                      })()
+                    : "N/A"}
                 </span>
               </div>
               <div className="flex justify-between gap-4">
@@ -1006,7 +939,7 @@ export default function TransferAuditReportPage() {
             <button
               type="submit"
               className="px-8 py-3 bg-gray-600 hover:bg-gray-500 cursor-pointer text-white font-semibold rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
-              disabled={isLoading || isSubmitting}
+              disabled={isSubmitting}
             >
               {isSubmitting ? (
                 <>
