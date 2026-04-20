@@ -144,7 +144,9 @@ export default function NearMissFormPage() {
 
       const newSerial = responseData.data?.serialNumber || "";
       setLastSubmittedSerial(newSerial);
-      setSubmitSuccess("Form submitted successfully.");
+      setSubmitSuccess(
+        "Form submitted successfully. A confirmation email will be sent to the address you provided."
+      );
       setForm({
         jobRef: "",
         vesselName: "",
