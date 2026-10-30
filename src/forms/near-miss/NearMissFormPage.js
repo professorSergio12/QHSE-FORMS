@@ -257,7 +257,7 @@ export default function NearMissFormPage() {
                   1. Job Ref # <span className="text-red-400">*</span>
                 </label>
                 <p className="text-xs text-red-400 mb-1">
-                  Enter Job Ref # (Example: 053-2023)
+                  Enter Job Ref # (Example: 2023-045)
                 </p>
                 <input
                   type="text"
