@@ -89,3 +89,36 @@ export const EVALUATION_CATEGORIES = [
   { name: "General", start: 67, end: 71 },
   { name: "Office Requirements", start: 72, end: 75 },
 ];
+
+/** Rows from this number on are "Office Requirements", rated 1-5; earlier rows are Yes / No. */
+export const POAC_OFFICE_START_SR_NO = 72;
+
+export const POAC_INTRO_TEXT =
+  "This cross audit is to be carried out by a nominated POAC for another POAC handling the STS operation. This audit will be reviewed by QHSE Manager or Director of Operation as required and it will be determined if POAC (Auditee) require any training.";
+
+export const POAC_LEVELS_TEXT =
+  "Levels of Performance: 1= Unacceptable, 2= Needs Improvement, 3=Meets Expectation, 4= Exceeds Expectation, 5=Outstanding. Require specific comments of auditor in case rating of performance is below 3";
+
+export const POAC_YES_NO_OPTIONS = [
+  { value: "Yes", label: "Yes" },
+  { value: "No", label: "No" },
+];
+
+export const POAC_PERFORMANCE_OPTIONS = [
+  { value: "1", label: "1 - Unacceptable" },
+  { value: "2", label: "2 - Needs Improvement" },
+  { value: "3", label: "3 - Meets Expectation" },
+  { value: "4", label: "4 - Exceeds Expectation" },
+  { value: "5", label: "5 - Outstanding" },
+];
+
+export function poacOptionsForRow(srNo) {
+  return srNo >= POAC_OFFICE_START_SR_NO ? POAC_PERFORMANCE_OPTIONS : POAC_YES_NO_OPTIONS;
+}
+
+/** The auditor must comment on a "No" or a rating below 3. */
+export function poacRemarksRequired(evaluation) {
+  if (evaluation === "No") return true;
+  const rating = Number(evaluation);
+  return Number.isInteger(rating) && rating >= 1 && rating < 3;
+}

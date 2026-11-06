@@ -7,6 +7,11 @@ import { getFormConfig, QHSE_FIXED_FORM_CODES } from "@/lib/qhseFormConfig";
 import {
   POAC_EVALUATION_ITEMS,
   EVALUATION_CATEGORIES,
+  POAC_INTRO_TEXT,
+  POAC_LEVELS_TEXT,
+  POAC_OFFICE_START_SR_NO,
+  poacOptionsForRow,
+  poacRemarksRequired,
 } from "./poacEvaluationItems";
 
 const initialEvaluationItems = POAC_EVALUATION_ITEMS.map((item) => ({
@@ -87,24 +92,18 @@ export default function PoacCrossCompetencyFormPage() {
   const handleEvaluationChange = (index, field, value) => {
     setForm((prev) => {
       const newItems = [...prev.evaluationItems];
-      if (field === "evaluation") {
-        let numValue = null;
-        if (value && value !== "" && value != null) {
-          const parsed = typeof value === "string" ? parseInt(value, 10) : Number(value);
-          if (!isNaN(parsed) && parsed >= 1 && parsed <= 5) numValue = parsed;
-        }
-        newItems[index] = { ...newItems[index], [field]: numValue };
-        if (numValue != null && numValue >= 3) {
-          setValidationErrors((prev) => {
-            const next = { ...prev };
-            delete next[`evaluation_${index}`];
-            return next;
-          });
-        }
-      } else {
-        newItems[index] = { ...newItems[index], [field]: value };
-      }
+      newItems[index] = {
+        ...newItems[index],
+        [field]: field === "evaluation" ? value || null : value,
+      };
       return { ...prev, evaluationItems: newItems };
+    });
+    // The remarks rule may no longer apply to this row
+    setValidationErrors((prev) => {
+      if (!prev[`evaluation_${index}`]) return prev;
+      const next = { ...prev };
+      delete next[`evaluation_${index}`];
+      return next;
     });
   };
 
@@ -115,11 +114,8 @@ export default function PoacCrossCompetencyFormPage() {
     if (!form.jobRefNo?.trim()) errors.jobRefNo = "Job Ref No is required";
     if (!form.leadPOAC?.trim()) errors.leadPOAC = "Lead POAC is required";
     form.evaluationItems.forEach((item, index) => {
-      if (item.evaluation != null && item.evaluation !== undefined) {
-        const evalNum = parseInt(item.evaluation, 10);
-        if (!isNaN(evalNum) && evalNum < 3 && (!item.remarks || !item.remarks.trim())) {
-          errors[`evaluation_${index}`] = `Remarks required for item ${item.srNo} when evaluation is less than 3`;
-        }
+      if (poacRemarksRequired(item.evaluation) && !item.remarks?.trim()) {
+        errors[`evaluation_${index}`] = `Remarks required for item ${item.srNo} when the answer is No or the rating is below 3`;
       }
     });
     setValidationErrors(errors);
@@ -152,18 +148,11 @@ export default function PoacCrossCompetencyFormPage() {
         ...(form.weatherCondition?.trim() && { weatherCondition: form.weatherCondition.trim() }),
         ...(form.deadweightDischarging !== "" && form.deadweightDischarging != null && { deadweightDischarging: Number(form.deadweightDischarging) }),
         ...(form.deadweightReceiving !== "" && form.deadweightReceiving != null && { deadweightReceiving: Number(form.deadweightReceiving) }),
-        evaluationItems: form.evaluationItems.map((item) => {
-          let evaluationValue = null;
-          if (item.evaluation != null && item.evaluation !== "" && item.evaluation !== undefined) {
-            const parsed = parseInt(item.evaluation, 10);
-            evaluationValue = !isNaN(parsed) && parsed >= 1 && parsed <= 5 ? parsed : null;
-          }
-          return {
-            srNo: item.srNo,
-            evaluation: evaluationValue,
-            remarks: item.remarks?.trim() || "",
-          };
-        }),
+        evaluationItems: form.evaluationItems.map((item) => ({
+          srNo: item.srNo,
+          evaluation: item.evaluation ?? null,
+          remarks: item.remarks?.trim() || "",
+        })),
         ...(form.leadPOACComment?.trim() && { leadPOACComment: form.leadPOACComment.trim() }),
         ...(form.leadPOACName?.trim() && { leadPOACName: form.leadPOACName.trim() }),
         ...(form.leadPOACDate && { leadPOACDate: form.leadPOACDate }),
@@ -245,6 +234,56 @@ export default function PoacCrossCompetencyFormPage() {
   const sectionClass = "bg-gray-800/90 backdrop-blur-sm rounded-2xl p-6 border border-gray-700 shadow-xl";
   const sectionTitleClass = "text-lg font-bold text-white mb-4";
 
+  const renderCategory = (category) => {
+    const categoryItems = form.evaluationItems.filter((item) => item.srNo >= category.start && item.srNo <= category.end);
+    const isOffice = category.start >= POAC_OFFICE_START_SR_NO;
+    return (
+      <div key={category.name} className="border border-gray-700 rounded-xl p-4 bg-gray-700/30">
+        <h3 className="text-sm font-bold text-gray-200 mb-3">{category.name}</h3>
+        <div className="space-y-3">
+          {categoryItems.map((item) => {
+            const globalIndex = form.evaluationItems.findIndex((e) => e.srNo === item.srNo);
+            const errorText = validationErrors[`evaluation_${globalIndex}`];
+            const remarksRequired = poacRemarksRequired(item.evaluation);
+            return (
+              <div key={item.srNo} className="border border-gray-600 rounded-lg p-3 bg-gray-700/20">
+                <div className="flex items-center gap-3 flex-wrap">
+                  <span className="text-xs font-semibold text-gray-400 shrink-0">{item.srNo}.</span>
+                  <p className="text-xs text-gray-300 flex-1 min-w-0">{item.area}</p>
+                  <div className={`shrink-0 ${isOffice ? "w-[180px]" : "w-[100px]"}`}>
+                    <label className="block text-[10px] text-gray-400 mb-1">{isOffice ? "Level of Performance" : "Evaluation"}</label>
+                    <select
+                      className={inputClass(!!errorText) + " py-1.5 w-full"}
+                      value={item.evaluation ?? ""}
+                      onChange={(e) => handleEvaluationChange(globalIndex, "evaluation", e.target.value)}
+                    >
+                      <option value="">Select</option>
+                      {poacOptionsForRow(item.srNo).map((option) => (
+                        <option key={option.value} value={option.value}>{option.label}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div className="mt-2 pl-9">
+                  <label className="block text-[10px] text-gray-400 mb-1">Remarks {remarksRequired && <span className="text-red-400">*</span>}</label>
+                  <textarea
+                    className={inputClass(!!errorText) + " py-1.5 resize-y"}
+                    rows={1}
+                    value={item.remarks}
+                    onChange={(e) => handleEvaluationChange(globalIndex, "remarks", e.target.value)}
+                    placeholder={remarksRequired ? "Please add your comments" : "Optional"}
+                    required={remarksRequired}
+                  />
+                  {errorText && <p className="text-[10px] text-red-400 mt-1">{errorText}</p>}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="min-h-screen">
       {/* Custom Navigation / Header */}
@@ -321,6 +360,7 @@ export default function PoacCrossCompetencyFormPage() {
           {/* POAC Details */}
           <div className={sectionClass}>
             <h2 className={sectionTitleClass}>POAC Details</h2>
+            <p className="text-xs text-gray-400 mb-4">{POAC_INTRO_TEXT}</p>
             <div className="grid gap-4 md:grid-cols-2">
               <div>
                 <label className={labelClass}>Name of POAC <span className="text-red-400">*</span></label>
@@ -333,7 +373,7 @@ export default function PoacCrossCompetencyFormPage() {
                 {validationErrors.evaluationDate && <p className="text-xs text-red-400 mt-1">{validationErrors.evaluationDate}</p>}
               </div>
               <div>
-                <label className={labelClass}>Job Ref No <span className="text-red-400">*</span></label>
+                <label className={labelClass}>Job Ref # <span className="text-red-400">*</span></label>
                 <input type="text" className={inputClass(!!validationErrors.jobRefNo)} value={form.jobRefNo} onChange={(e) => handleChange("jobRefNo", e.target.value)} required />
                 {validationErrors.jobRefNo && <p className="text-xs text-red-400 mt-1">{validationErrors.jobRefNo}</p>}
               </div>
@@ -363,11 +403,11 @@ export default function PoacCrossCompetencyFormPage() {
                 <input type="text" className={inputClass(false)} value={form.weatherCondition} onChange={(e) => handleChange("weatherCondition", e.target.value)} />
               </div>
               <div>
-                <label className={labelClass}>Deadweight Discharging</label>
+                <label className={labelClass}>Deadweight Discharging (Metric Tonnes)</label>
                 <input type="number" step="any" className={inputClass(false)} value={form.deadweightDischarging} onChange={(e) => handleChange("deadweightDischarging", e.target.value)} />
               </div>
               <div>
-                <label className={labelClass}>Deadweight Receiving</label>
+                <label className={labelClass}>Deadweight Receiving (Metric Tonnes)</label>
                 <input type="number" step="any" className={inputClass(false)} value={form.deadweightReceiving} onChange={(e) => handleChange("deadweightReceiving", e.target.value)} />
               </div>
             </div>
@@ -376,61 +416,9 @@ export default function PoacCrossCompetencyFormPage() {
           {/* Evaluation Items */}
           <div className={sectionClass}>
             <h2 className={sectionTitleClass}>Evaluation Items</h2>
-            <p className="text-xs text-gray-400 mb-4">Rate each item 1–5. Remarks are required when evaluation is less than 3.</p>
+            <p className="text-xs text-gray-400 mb-4">Answer Yes or No for each item. Remarks are required for a No.</p>
             <div className="space-y-6">
-              {EVALUATION_CATEGORIES.map((category) => {
-                const categoryItems = form.evaluationItems.filter((item) => item.srNo >= category.start && item.srNo <= category.end);
-                return (
-                  <div key={category.name} className="border border-gray-700 rounded-xl p-4 bg-gray-700/30">
-                    <h3 className="text-sm font-bold text-gray-200 mb-3">{category.name}</h3>
-                    <div className="space-y-3">
-                      {categoryItems.map((item) => {
-                        const globalIndex = form.evaluationItems.findIndex((e) => e.srNo === item.srNo);
-                        const hasError = validationErrors[`evaluation_${globalIndex}`];
-                        const evalNum = typeof item.evaluation === "number" ? item.evaluation : item.evaluation != null ? parseInt(item.evaluation, 10) : null;
-                        const showRemarks = evalNum != null && !isNaN(evalNum) && evalNum < 3;
-                        return (
-                          <div key={item.srNo} className="border border-gray-600 rounded-lg p-3 bg-gray-700/20">
-                            <div className="flex items-center gap-3 flex-wrap">
-                              <span className="text-xs font-semibold text-gray-400 shrink-0">{item.srNo}.</span>
-                              <p className="text-xs text-gray-300 flex-1 min-w-0">{item.area}</p>
-                              <div className="shrink-0 w-[100px]">
-                                <label className="block text-[10px] text-gray-400 mb-1">Evaluation (1-5)</label>
-                                <select
-                                  className={inputClass(hasError) + " py-1.5 w-full"}
-                                  value={item.evaluation != null && item.evaluation !== undefined ? String(item.evaluation) : ""}
-                                  onChange={(e) => handleEvaluationChange(globalIndex, "evaluation", e.target.value)}
-                                >
-                                  <option value="">Select</option>
-                                  <option value="1">1</option>
-                                  <option value="2">2</option>
-                                  <option value="3">3</option>
-                                  <option value="4">4</option>
-                                  <option value="5">5</option>
-                                </select>
-                              </div>
-                            </div>
-                            {(showRemarks || item.remarks) && (
-                              <div className="mt-2 pl-9">
-                                <label className="block text-[10px] text-gray-400 mb-1">Remarks {showRemarks && <span className="text-red-400">*</span>}</label>
-                                <textarea
-                                  className={inputClass(hasError) + " py-1.5 resize-y"}
-                                  rows={2}
-                                  value={item.remarks}
-                                  onChange={(e) => handleEvaluationChange(globalIndex, "remarks", e.target.value)}
-                                  placeholder="Required when evaluation &lt; 3"
-                                  required={showRemarks}
-                                />
-                                {hasError && <p className="text-[10px] text-red-400 mt-1">{validationErrors[`evaluation_${globalIndex}`]}</p>}
-                              </div>
-                            )}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                );
-              })}
+              {EVALUATION_CATEGORIES.filter((category) => category.start < POAC_OFFICE_START_SR_NO).map(renderCategory)}
             </div>
           </div>
 
@@ -482,9 +470,18 @@ export default function PoacCrossCompetencyFormPage() {
             </div>
           </div>
 
+          {/* Office Requirements (rows 72-75, rated 1-5) */}
+          <div className={sectionClass}>
+            <h2 className={sectionTitleClass}>Level of Performance</h2>
+            <p className="text-xs text-gray-400 mb-4">{POAC_LEVELS_TEXT}</p>
+            <div className="space-y-6">
+              {EVALUATION_CATEGORIES.filter((category) => category.start >= POAC_OFFICE_START_SR_NO).map(renderCategory)}
+            </div>
+          </div>
+
           {/* Operations Support Team Comment */}
           <div className={sectionClass}>
-            <h2 className={sectionTitleClass}>Operations Support Team Comment</h2>
+            <h2 className={sectionTitleClass}>Operation & Operations Support Team Comments</h2>
             <textarea className={inputClass(false)} rows={4} value={form.opsSupportTeamComment} onChange={(e) => handleChange("opsSupportTeamComment", e.target.value)} />
           </div>
 
