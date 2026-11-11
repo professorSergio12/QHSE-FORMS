@@ -29,7 +29,7 @@ const QuestionComponent = ({
             value="Yes"
             checked={value === "Yes"}
             onChange={(e) => onChange(e.target.value)}
-            className="w-4 h-4 text-gray-400 bg-gray-700 border-gray-600 focus:ring-0 focus:border-gray-400"
+            className="w-4 h-4 text-gray-400 bg-black/20 border-white/25 focus:ring-0 focus:border-gray-400"
           />
           <span className="text-gray-300 group-hover:text-white transition-colors">
             Yes
@@ -42,7 +42,7 @@ const QuestionComponent = ({
             value="No"
             checked={value === "No"}
             onChange={(e) => onChange(e.target.value)}
-            className="w-4 h-4 text-gray-400 bg-gray-700 border-gray-600 focus:ring-0 focus:border-gray-400"
+            className="w-4 h-4 text-gray-400 bg-black/20 border-white/25 focus:ring-0 focus:border-gray-400"
           />
           <span className="text-gray-300 group-hover:text-white transition-colors">
             No
@@ -55,7 +55,7 @@ const QuestionComponent = ({
             value="NA"
             checked={value === "NA"}
             onChange={(e) => onChange(e.target.value)}
-            className="w-4 h-4 text-gray-400 bg-gray-700 border-gray-600 focus:ring-0 focus:border-gray-400"
+            className="w-4 h-4 text-gray-400 bg-black/20 border-white/25 focus:ring-0 focus:border-gray-400"
           />
           <span className="text-gray-300 group-hover:text-white transition-colors">
             NA
@@ -69,7 +69,7 @@ const QuestionComponent = ({
             value={remarksValue || ""}
             onChange={(e) => onRemarksChange(e.target.value)}
             placeholder="Enter details..."
-            className="w-full max-w-md px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400 transition-all"
+            className="w-full max-w-md px-4 py-2 bg-black/20 border border-white/25 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400 transition-all"
           />
         </div>
       )}
@@ -97,7 +97,7 @@ const TextQuestionComponent = ({
           value={value || ""}
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
-          className="w-full max-w-md px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400 transition-all"
+          className="w-full max-w-md px-4 py-2 bg-black/20 border border-white/25 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400 transition-all"
         />
       </div>
     </div>
@@ -522,7 +522,7 @@ export default function TransferAuditReportPage() {
   return (
     <div className="min-h-screen">
       {/* Custom Navigation / Header */}
-      <nav className="bg-gray-800 border-b border-gray-700 sticky top-0 z-50 py-4 px-4 shadow-lg">
+      <nav className="bg-black/20 backdrop-blur-md border-b border-white/15 sticky top-0 z-50 py-4 px-4 shadow-lg">
         <div className="container mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
             <div className="rounded-lg">
@@ -542,7 +542,7 @@ export default function TransferAuditReportPage() {
             </h1>
           </div>
 
-          <div className="bg-gray-700 rounded-lg p-3 border border-gray-600 min-w-[250px] w-full md:w-auto">
+          <div className="bg-white/5 rounded-lg p-3 border border-white/20 min-w-[250px] w-full md:w-auto">
             <div className="text-sm space-y-1 text-gray-300">
               <div className="flex justify-between gap-4">
                 <span>Form Code:</span>
@@ -591,7 +591,7 @@ export default function TransferAuditReportPage() {
       <div className="relative min-h-screen">
         {/* Background Overlay */}
         <div
-          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed opacity-30 filter blur-xs"
+          className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed opacity-30 filter blur-xs"
           style={{ backgroundImage: 'url("/image/ship-bg.jpg")' }}
         ></div>
 
@@ -603,36 +603,36 @@ export default function TransferAuditReportPage() {
           )}
 
           {/* General Information Section */}
-          <div className="bg-gray-800/90 backdrop-blur-sm rounded-2xl mb-8 p-8 border border-gray-700 shadow-xl">
+          <div className="bg-white/5 backdrop-blur-[2px] rounded-2xl mb-8 p-8 border border-white/15 shadow-xl">
             <p className="text-gray-300 text-sm mb-6 italic">
               An STS Transfer Audit shall be conducted by an active POAC whilst on
               an operation for each base, annually as a minimum, or upon request.
             </p>
 
-            <div className="bg-gray-700/80 rounded-lg p-4 mb-4 border border-gray-600">
+            <div className="bg-black/20 rounded-lg p-4 mb-4 border border-white/25">
               <h2 className="text-xl font-bold text-white mb-4">
                 General Information
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="locationName" className="block text-white text-sm font-medium mb-2">Location name</label>
-                  <input id="locationName" type="text" value={formData.header.locationName} onChange={(e) => updateHeader("locationName", e.target.value)} className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-gray-400 transition-all" placeholder="Enter location name" />
+                  <input id="locationName" type="text" value={formData.header.locationName} onChange={(e) => updateHeader("locationName", e.target.value)} className="w-full px-4 py-2 bg-black/20 border border-white/25 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-gray-400 transition-all" placeholder="Enter location name" />
                 </div>
                 <div>
                   <label htmlFor="date" className="block text-white text-sm font-medium mb-2">Date</label>
-                  <input id="date" type="date" value={formData.header.date} onChange={(e) => updateHeader("date", e.target.value)} className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-gray-400 transition-all" />
+                  <input id="date" type="date" value={formData.header.date} onChange={(e) => updateHeader("date", e.target.value)} className="w-full px-4 py-2 bg-black/20 border border-white/25 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-gray-400 transition-all" />
                 </div>
                 <div>
                   <label htmlFor="jobNo" className="block text-white text-sm font-medium mb-2">Job no.</label>
-                  <input id="jobNo" type="text" value={formData.header.jobNo} onChange={(e) => updateHeader("jobNo", e.target.value)} className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-gray-400 transition-all" placeholder="Enter job number" />
+                  <input id="jobNo" type="text" value={formData.header.jobNo} onChange={(e) => updateHeader("jobNo", e.target.value)} className="w-full px-4 py-2 bg-black/20 border border-white/25 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-gray-400 transition-all" placeholder="Enter job number" />
                 </div>
                 <div>
                   <label htmlFor="dischargingVessel" className="block text-white text-sm font-medium mb-2">Discharging vessel</label>
-                  <input id="dischargingVessel" type="text" value={formData.header.dischargingVessel} onChange={(e) => updateHeader("dischargingVessel", e.target.value)} className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-gray-400 transition-all" placeholder="Enter discharging vessel" />
+                  <input id="dischargingVessel" type="text" value={formData.header.dischargingVessel} onChange={(e) => updateHeader("dischargingVessel", e.target.value)} className="w-full px-4 py-2 bg-black/20 border border-white/25 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-gray-400 transition-all" placeholder="Enter discharging vessel" />
                 </div>
                 <div>
                   <label htmlFor="receivingVessel" className="block text-white text-sm font-medium mb-2">Receiving vessel</label>
-                  <input id="receivingVessel" type="text" value={formData.header.receivingVessel} onChange={(e) => updateHeader("receivingVessel", e.target.value)} className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-gray-400 transition-all" placeholder="Enter receiving vessel" />
+                  <input id="receivingVessel" type="text" value={formData.header.receivingVessel} onChange={(e) => updateHeader("receivingVessel", e.target.value)} className="w-full px-4 py-2 bg-black/20 border border-white/25 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-gray-400 transition-all" placeholder="Enter receiving vessel" />
                 </div>
               </div>
             </div>
@@ -640,8 +640,8 @@ export default function TransferAuditReportPage() {
 
         <form onSubmit={handleSubmit} className="space-y-8">
           {/* Section A - Pre-planning */}
-          <div className="bg-gray-800/90 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 shadow-xl">
-            <div className="bg-gray-700 rounded-lg p-4 mb-6 border border-gray-600">
+          <div className="bg-white/5 backdrop-blur-[2px] rounded-2xl p-8 border border-white/15 shadow-xl">
+            <div className="bg-black/20 rounded-lg p-4 mb-6 border border-white/25">
               <h2 className="text-2xl font-bold text-white">A Pre-planning</h2>
             </div>
             <div className="space-y-6">
@@ -674,8 +674,8 @@ export default function TransferAuditReportPage() {
           </div>
 
           {/* Section B - Mobilization to Demobilization */}
-          <div className="bg-gray-800 rounded-2xl p-8 border border-gray-700">
-            <div className="bg-gray-700 rounded-lg p-4 mb-6 border border-gray-600">
+          <div className="bg-white/5 backdrop-blur-[2px] rounded-2xl p-8 border border-white/15">
+            <div className="bg-black/20 rounded-lg p-4 mb-6 border border-white/25">
               <h2 className="text-2xl font-bold text-white">
                 B Mobilization to Demobilization
               </h2>
@@ -703,8 +703,8 @@ export default function TransferAuditReportPage() {
           </div>
 
           {/* Section C - Support Craft */}
-          <div className="bg-gray-800 rounded-2xl p-8 border border-gray-700">
-            <div className="bg-gray-700 rounded-lg p-4 mb-6 border border-gray-600">
+          <div className="bg-white/5 backdrop-blur-[2px] rounded-2xl p-8 border border-white/15">
+            <div className="bg-black/20 rounded-lg p-4 mb-6 border border-white/25">
               <h2 className="text-2xl font-bold text-white">C Support Craft</h2>
             </div>
             <div className="space-y-6">
@@ -747,8 +747,8 @@ export default function TransferAuditReportPage() {
           </div>
 
           {/* Section D - STS Equipment */}
-          <div className="bg-gray-800 rounded-2xl p-8 border border-gray-700">
-            <div className="bg-gray-700 rounded-lg p-4 mb-6 border border-gray-600">
+          <div className="bg-white/5 backdrop-blur-[2px] rounded-2xl p-8 border border-white/15">
+            <div className="bg-black/20 rounded-lg p-4 mb-6 border border-white/25">
               <h2 className="text-2xl font-bold text-white">D STS Equipment</h2>
             </div>
             <div className="space-y-6">
@@ -791,8 +791,8 @@ export default function TransferAuditReportPage() {
           </div>
 
           {/* Section E - Post Operation */}
-          <div className="bg-gray-800 rounded-2xl p-8 border border-gray-700">
-            <div className="bg-gray-700 rounded-lg p-4 mb-6 border border-gray-600">
+          <div className="bg-white/5 backdrop-blur-[2px] rounded-2xl p-8 border border-white/15">
+            <div className="bg-black/20 rounded-lg p-4 mb-6 border border-white/25">
               <h2 className="text-2xl font-bold text-white">
                 E Post Operation
               </h2>
@@ -837,8 +837,8 @@ export default function TransferAuditReportPage() {
           </div>
 
           {/* Comments Section */}
-          <div className="bg-gray-800 rounded-2xl p-8 border border-gray-700">
-            <div className="bg-gray-700 rounded-lg p-4 mb-6 border border-gray-600">
+          <div className="bg-white/5 backdrop-blur-[2px] rounded-2xl p-8 border border-white/15">
+            <div className="bg-black/20 rounded-lg p-4 mb-6 border border-white/25">
               <h2 className="text-2xl font-bold text-white">Comments</h2>
             </div>
             <p className="text-gray-400 text-sm mb-4 italic">
@@ -848,14 +848,14 @@ export default function TransferAuditReportPage() {
               value={formData.comments.remarks}
               onChange={(e) => updateComments(e.target.value)}
               rows={6}
-              className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400 transition-all resize-none"
+              className="w-full px-4 py-3 bg-black/20 border border-white/25 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400 transition-all resize-none"
               placeholder="Enter your comments, remarks, actions required, safety suggestions or improvements..."
             />
           </div>
 
           {/* Completed By Section */}
-          <div className="bg-gray-800 rounded-2xl p-8 border border-gray-700">
-            <div className="bg-gray-700 rounded-lg p-4 mb-6 border border-gray-600">
+          <div className="bg-white/5 backdrop-blur-[2px] rounded-2xl p-8 border border-white/15">
+            <div className="bg-black/20 rounded-lg p-4 mb-6 border border-white/25">
               <h2 className="text-2xl font-bold text-white">Completed by</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -871,7 +871,7 @@ export default function TransferAuditReportPage() {
                   type="date"
                   value={formData.completedBy.date}
                   onChange={(e) => updateCompletedBy("date", e.target.value)}
-                  className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400 transition-all"
+                  className="w-full px-4 py-2 bg-black/20 border border-white/25 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400 transition-all"
                 />
               </div>
               <div>
@@ -886,7 +886,7 @@ export default function TransferAuditReportPage() {
                   type="text"
                   value={formData.completedBy.name}
                   onChange={(e) => updateCompletedBy("name", e.target.value)}
-                  className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400 transition-all"
+                  className="w-full px-4 py-2 bg-black/20 border border-white/25 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400 transition-all"
                   placeholder="Enter your name"
                 />
               </div>
@@ -904,7 +904,7 @@ export default function TransferAuditReportPage() {
                     value={formData.completedBy.signature?.startsWith?.("data:") ? "" : (formData.completedBy.signature || "")}
                     onChange={(e) => updateCompletedBy("signature", e.target.value)}
                     placeholder="Type signature or name"
-                    className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-gray-400 transition-all"
+                    className="w-full px-4 py-2 bg-black/20 border border-white/25 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-gray-400 transition-all"
                   />
                   <p className="text-[10px] text-gray-400">Or upload signature image</p>
                   <input
@@ -918,7 +918,7 @@ export default function TransferAuditReportPage() {
                       <img
                         src={formData.completedBy.signature}
                         alt="Signature"
-                        className="h-14 border border-gray-600 rounded object-contain bg-white"
+                        className="h-14 border border-white/25 rounded object-contain bg-white"
                       />
                       <button
                         type="button"

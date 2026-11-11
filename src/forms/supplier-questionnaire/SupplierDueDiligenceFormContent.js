@@ -355,7 +355,7 @@ export default function SupplierDueDiligenceFormContent() {
   return (
     <div className="min-h-screen">
       {/* Custom Navigation / Header */}
-      <nav className="bg-gray-800 border-b border-gray-700 sticky top-0 z-50 py-4 px-4 shadow-lg">
+      <nav className="bg-black/20 backdrop-blur-md border-b border-white/15 sticky top-0 z-50 py-4 px-4 shadow-lg">
         <div className="container mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
             <div className="rounded-lg">
@@ -375,7 +375,7 @@ export default function SupplierDueDiligenceFormContent() {
             </h1>
           </div>
 
-          <div className="bg-gray-700 rounded-lg p-3 border border-gray-600 min-w-[250px] w-full md:w-auto">
+          <div className="bg-white/5 rounded-lg p-3 border border-white/20 min-w-[250px] w-full md:w-auto">
             <div className="text-sm space-y-1 text-gray-300">
               <div className="flex justify-between gap-4">
                 <span>Form Code:</span>
@@ -407,7 +407,7 @@ export default function SupplierDueDiligenceFormContent() {
       <div className="relative min-h-screen">
         {/* Background Overlay */}
         <div
-          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed opacity-30 filter blur-xs"
+          className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed opacity-30 filter blur-xs"
           style={{ backgroundImage: 'url("/image/ship-bg.jpg")' }}
         ></div>
 
@@ -427,10 +427,10 @@ export default function SupplierDueDiligenceFormContent() {
         )}
 
         {(
-          <form className="rounded-2xl border border-gray-700 bg-gray-800/90 backdrop-blur-sm p-6 space-y-8 shadow-xl">
+          <form className="rounded-2xl border border-white/15 bg-white/5 backdrop-blur-[2px] p-6 space-y-8 shadow-xl">
             {/* Section 1: Basic Details (Q1-Q9) */}
             <div className="space-y-6">
-              <h2 className="text-lg font-semibold text-white border-b border-gray-700 pb-2 flex items-center gap-2">
+              <h2 className="text-lg font-semibold text-white border-b border-white/15 pb-2 flex items-center gap-2">
                 <span className="w-1 h-6 bg-orange-500 rounded"></span>
                 Basic Details
               </h2>
@@ -451,7 +451,7 @@ export default function SupplierDueDiligenceFormContent() {
                       )
                     }
                     required
-                    className="w-full rounded-lg border border-gray-700 bg-gray-700 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
+                    className="w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
                   />
                 </div>
 
@@ -470,7 +470,7 @@ export default function SupplierDueDiligenceFormContent() {
                       )
                     }
                     required
-                    className="w-full rounded-lg border border-gray-700 bg-gray-700 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
+                    className="w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
                   />
                 </div>
 
@@ -487,7 +487,7 @@ export default function SupplierDueDiligenceFormContent() {
                         e.target.value
                       )
                     }
-                    className="w-full rounded-lg border border-gray-700 bg-gray-700 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
+                    className="w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
                   />
                   <p className="text-xs text-white mt-1">
                     Please send a copy of trade license.
@@ -508,7 +508,7 @@ export default function SupplierDueDiligenceFormContent() {
                         e.target.value
                       )
                     }
-                    className="w-full rounded-lg border border-gray-700 bg-gray-700 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
+                    className="w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
                   />
                 </div>
 
@@ -554,7 +554,7 @@ export default function SupplierDueDiligenceFormContent() {
                         )
                       }
                       placeholder="Enter subsidiary names"
-                      className="w-full rounded-lg border border-gray-700 bg-gray-700 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
+                      className="w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
                     />
                   )}
                 </div>
@@ -572,7 +572,7 @@ export default function SupplierDueDiligenceFormContent() {
                         e.target.value
                       )
                     }
-                    className="w-full rounded-lg border border-gray-700 bg-gray-700 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
+                    className="w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
                   />
                 </div>
 
@@ -590,7 +590,7 @@ export default function SupplierDueDiligenceFormContent() {
                         e.target.value
                       )
                     }
-                    className="w-full rounded-lg border border-gray-700 bg-gray-700 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400 resize-y"
+                    className="w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400 resize-y"
                   />
                 </div>
 
@@ -608,7 +608,7 @@ export default function SupplierDueDiligenceFormContent() {
                         e.target.value
                       )
                     }
-                    className="w-full rounded-lg border border-gray-700 bg-gray-700 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400 resize-y"
+                    className="w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400 resize-y"
                   />
                 </div>
 
@@ -625,7 +625,7 @@ export default function SupplierDueDiligenceFormContent() {
                       className={`px-4 py-2 rounded-lg border text-sm transition ${
                         form.supplierDetails.paymentTerms === "30 days"
                           ? "bg-orange-500 text-white border-orange-500"
-                          : "bg-gray-700 text-white border-gray-700 hover:bg-gray-600"
+                          : "bg-black/20 text-white border-white/15 hover:bg-gray-600"
                       }`}
                     >
                       30 days
@@ -644,7 +644,7 @@ export default function SupplierDueDiligenceFormContent() {
                         handleChange("supplierDetails.paymentTerms", "Other")
                       }
                       placeholder="Enter other payment terms"
-                      className="flex-1 rounded-lg border border-gray-700 bg-gray-700 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
+                      className="flex-1 rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
                     />
                   </div>
                 </div>
@@ -652,8 +652,8 @@ export default function SupplierDueDiligenceFormContent() {
             </div>
 
             {/* Section 2: Legal Declarations (Q10-Q15) */}
-            <div className="space-y-6 border-t border-gray-700 pt-6">
-              <h2 className="text-lg font-semibold text-white border-b border-gray-700 pb-2 flex items-center gap-2">
+            <div className="space-y-6 border-t border-white/15 pt-6">
+              <h2 className="text-lg font-semibold text-white border-b border-white/15 pb-2 flex items-center gap-2">
                 <span className="w-1 h-6 bg-orange-500 rounded"></span>
                 Legal & Financial Declarations
               </h2>
@@ -737,15 +737,15 @@ export default function SupplierDueDiligenceFormContent() {
                         e.target.value
                       )
                     }
-                    className="w-full rounded-lg border border-gray-700 bg-gray-700 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400 resize-y"
+                    className="w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400 resize-y"
                   />
                 </div>
               </div>
             </div>
 
             {/* Section 3: Insurance Details (Q16-Q19) */}
-            <div className="space-y-6 border-t border-gray-700 pt-6">
-              <h2 className="text-lg font-semibold text-white border-b border-gray-700 pb-2 flex items-center gap-2">
+            <div className="space-y-6 border-t border-white/15 pt-6">
+              <h2 className="text-lg font-semibold text-white border-b border-white/15 pb-2 flex items-center gap-2">
                 <span className="w-1 h-6 bg-orange-500 rounded"></span>
                 Insurance Details
               </h2>
@@ -765,7 +765,7 @@ export default function SupplierDueDiligenceFormContent() {
                       handleChange("insuranceDetails.pAndI", e.target.value)
                     }
                     placeholder="Value"
-                    className="w-full rounded-lg border border-gray-700 bg-gray-700 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
+                    className="w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
                   />
                 </div>
 
@@ -784,7 +784,7 @@ export default function SupplierDueDiligenceFormContent() {
                       )
                     }
                     placeholder="Value"
-                    className="w-full rounded-lg border border-gray-700 bg-gray-700 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
+                    className="w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
                   />
                 </div>
 
@@ -802,7 +802,7 @@ export default function SupplierDueDiligenceFormContent() {
                       )
                     }
                     placeholder="Value"
-                    className="w-full rounded-lg border border-gray-700 bg-gray-700 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
+                    className="w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
                   />
                 </div>
 
@@ -820,15 +820,15 @@ export default function SupplierDueDiligenceFormContent() {
                       )
                     }
                     placeholder="Value"
-                    className="w-full rounded-lg border border-gray-700 bg-gray-700 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
+                    className="w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
                   />
                 </div>
               </div>
             </div>
 
             {/* Section 4: Quality & Compliance (Q20-Q28) */}
-            <div className="space-y-6 border-t border-gray-700 pt-6">
-              <h2 className="text-lg font-semibold text-white border-b border-gray-700 pb-2 flex items-center gap-2">
+            <div className="space-y-6 border-t border-white/15 pt-6">
+              <h2 className="text-lg font-semibold text-white border-b border-white/15 pb-2 flex items-center gap-2">
                 <span className="w-1 h-6 bg-orange-500 rounded"></span>
                 Quality & Compliance
               </h2>
@@ -896,7 +896,7 @@ export default function SupplierDueDiligenceFormContent() {
                               e.target.value
                             )
                           }
-                          className="w-full rounded-lg border border-gray-700 bg-gray-700 px-3 py-2 text-sm text-white focus:outline-none focus:outline-none focus:border-gray-400"
+                          className="w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-sm text-white focus:outline-none focus:outline-none focus:border-gray-400"
                         />
                       </div>
                       <div>
@@ -915,7 +915,7 @@ export default function SupplierDueDiligenceFormContent() {
                               e.target.value
                             )
                           }
-                          className="w-full rounded-lg border border-gray-700 bg-gray-700 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
+                          className="w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
                         />
                       </div>
                     </div>
@@ -996,7 +996,7 @@ export default function SupplierDueDiligenceFormContent() {
                         e.target.value
                       )
                     }
-                    className="w-full rounded-lg border border-gray-700 bg-gray-700 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400 resize-y"
+                    className="w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400 resize-y"
                   />
                 </div>
 
@@ -1014,7 +1014,7 @@ export default function SupplierDueDiligenceFormContent() {
                         e.target.value
                       )
                     }
-                    className="w-full rounded-lg border border-gray-700 bg-gray-700 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
+                    className="w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
                   />
                 </div>
 
@@ -1033,7 +1033,7 @@ export default function SupplierDueDiligenceFormContent() {
                           e.target.value
                         )
                       }
-                      className="w-full rounded-lg border border-gray-700 bg-gray-700 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400 resize-y"
+                      className="w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400 resize-y"
                     />
                   </div>
                 )}
@@ -1052,7 +1052,7 @@ export default function SupplierDueDiligenceFormContent() {
                           e.target.value
                         )
                       }
-                      className="w-full rounded-lg border border-gray-700 bg-gray-700 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400 resize-y"
+                      className="w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400 resize-y"
                     />
                   </div>
                 )}
@@ -1060,8 +1060,8 @@ export default function SupplierDueDiligenceFormContent() {
             </div>
 
             {/* Section 5: Ethics & Governance (Q30-Q37) */}
-            <div className="space-y-6 border-t border-gray-700 pt-6">
-              <h2 className="text-lg font-semibold text-white border-b border-gray-700 pb-2 flex items-center gap-2">
+            <div className="space-y-6 border-t border-white/15 pt-6">
+              <h2 className="text-lg font-semibold text-white border-b border-white/15 pb-2 flex items-center gap-2">
                 <span className="w-1 h-6 bg-orange-500 rounded"></span>
                 Ethics & Governance
               </h2>
@@ -1151,7 +1151,7 @@ export default function SupplierDueDiligenceFormContent() {
                           e.target.value
                         )
                       }
-                      className="w-full rounded-lg border border-gray-700 bg-gray-700 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400 resize-y"
+                      className="w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400 resize-y"
                     />
                   </div>
                 )}
@@ -1159,8 +1159,8 @@ export default function SupplierDueDiligenceFormContent() {
             </div>
 
             {/* Section 6: Financial & Data Protection (Q38-Q41) */}
-            <div className="space-y-6 border-t border-gray-700 pt-6">
-              <h2 className="text-lg font-semibold text-white border-b border-gray-700 pb-2 flex items-center gap-2">
+            <div className="space-y-6 border-t border-white/15 pt-6">
+              <h2 className="text-lg font-semibold text-white border-b border-white/15 pb-2 flex items-center gap-2">
                 <span className="w-1 h-6 bg-orange-500 rounded"></span>
                 Financial & Data Protection
               </h2>
@@ -1180,7 +1180,7 @@ export default function SupplierDueDiligenceFormContent() {
                         e.target.value
                       )
                     }
-                    className="w-full rounded-lg border border-gray-700 bg-gray-700 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
+                    className="w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
                   />
                 </div>
 
@@ -1197,7 +1197,7 @@ export default function SupplierDueDiligenceFormContent() {
                         e.target.value
                       )
                     }
-                    className="w-full rounded-lg border border-gray-700 bg-gray-700 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
+                    className="w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
                   />
                 </div>
 
@@ -1263,7 +1263,7 @@ export default function SupplierDueDiligenceFormContent() {
                             e.target.value
                           )
                         }
-                        className="w-full rounded-lg border border-gray-700 bg-gray-700 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
+                        className="w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
                       />
                     </div>
                     <div>
@@ -1279,7 +1279,7 @@ export default function SupplierDueDiligenceFormContent() {
                             e.target.value
                           )
                         }
-                        className="w-full rounded-lg border border-gray-700 bg-gray-700 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
+                        className="w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
                       />
                     </div>
                     <div>
@@ -1297,7 +1297,7 @@ export default function SupplierDueDiligenceFormContent() {
                             e.target.value
                           )
                         }
-                        className="w-full rounded-lg border border-gray-700 bg-gray-700 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
+                        className="w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
                       />
                     </div>
                     <div>
@@ -1316,7 +1316,7 @@ export default function SupplierDueDiligenceFormContent() {
                             e.target.value
                           )
                         }
-                        className="w-full rounded-lg border border-gray-700 bg-gray-700 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
+                        className="w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
                       />
                     </div>
                   </div>
@@ -1325,15 +1325,15 @@ export default function SupplierDueDiligenceFormContent() {
             </div>
 
             {/* Section: Additional Documents */}
-            <div className="space-y-4 border-t border-gray-700 pt-6">
-              <h2 className="text-lg font-semibold text-white border-b border-gray-700 pb-2 flex items-center gap-2">
+            <div className="space-y-4 border-t border-white/15 pt-6">
+              <h2 className="text-lg font-semibold text-white border-b border-white/15 pb-2 flex items-center gap-2">
                 <span className="w-1 h-6 bg-orange-500 rounded"></span>
                 Additional Documents
               </h2>
               <p className="text-sm text-gray-300">
                 Attach any supporting documents (e.g. certificates, policies).
               </p>
-              <div className="rounded-lg border border-gray-700 bg-gray-700/50 p-4 space-y-3">
+              <div className="rounded-lg border border-white/15 bg-black/20 p-4 space-y-3">
                 <label className="flex flex-col gap-2">
                   <span className="text-xs text-gray-300">
                     Choose files to attach (multiple allowed)
@@ -1351,7 +1351,7 @@ export default function SupplierDueDiligenceFormContent() {
                     {form.additionalDocuments.map((doc, index) => (
                       <li
                         key={index}
-                        className="flex items-center justify-between rounded-lg border border-gray-700 bg-gray-700 px-3 py-2 text-sm text-white"
+                        className="flex items-center justify-between rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-sm text-white"
                       >
                         <span className="truncate">{doc.fileName}</span>
                         <button
@@ -1369,14 +1369,14 @@ export default function SupplierDueDiligenceFormContent() {
             </div>
 
             {/* Section 7: Declarations */}
-            <div className="space-y-6 border-t border-gray-700 pt-6">
-              <h2 className="text-lg font-semibold text-white border-b border-gray-700 pb-2 flex items-center gap-2">
+            <div className="space-y-6 border-t border-white/15 pt-6">
+              <h2 className="text-lg font-semibold text-white border-b border-white/15 pb-2 flex items-center gap-2">
                 <span className="w-1 h-6 bg-orange-500 rounded"></span>
                 Declarations
               </h2>
 
               {/* General Declaration */}
-              <div className="rounded-lg border border-gray-700 bg-gray-700/50 p-4 space-y-4">
+              <div className="rounded-lg border border-white/15 bg-black/20 p-4 space-y-4">
                 <h3 className="text-base font-semibold text-orange-400">
                   General Declaration
                 </h3>
@@ -1401,7 +1401,7 @@ export default function SupplierDueDiligenceFormContent() {
                       onChange={(e) =>
                         handleChange("generalDeclaration.name", e.target.value)
                       }
-                      className="w-full rounded-lg border border-gray-700 bg-gray-700 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
+                      className="w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
                     />
                   </div>
                   <div>
@@ -1417,7 +1417,7 @@ export default function SupplierDueDiligenceFormContent() {
                           e.target.value
                         )
                       }
-                      className="w-full rounded-lg border border-gray-700 bg-gray-700 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
+                      className="w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
                     />
                   </div>
                   <div className="md:col-span-2">
@@ -1433,12 +1433,12 @@ export default function SupplierDueDiligenceFormContent() {
                           e.target.value
                         )
                       }
-                      className="w-full rounded-lg border border-gray-700 bg-gray-700 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400 resize-y mb-2"
+                      className="w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400 resize-y mb-2"
                       placeholder="Type your signature here"
                     />
                     <div className="flex flex-wrap items-center gap-2">
                       <label className="cursor-pointer">
-                        <span className="inline-flex items-center gap-1 rounded-lg border border-gray-600 bg-gray-700 px-3 py-1.5 text-xs text-gray-300 hover:bg-gray-600">
+                        <span className="inline-flex items-center gap-1 rounded-lg border border-white/25 bg-black/20 px-3 py-1.5 text-xs text-gray-300 hover:bg-gray-600">
                           Upload signature image
                         </span>
                         <input
@@ -1458,7 +1458,7 @@ export default function SupplierDueDiligenceFormContent() {
                           <img
                             src={form.generalDeclaration.signatureImage}
                             alt="Signature"
-                            className="h-10 border border-gray-600 rounded object-contain bg-gray-700"
+                            className="h-10 border border-white/25 rounded object-contain bg-black/20"
                           />
                           <button
                             type="button"
@@ -1486,14 +1486,14 @@ export default function SupplierDueDiligenceFormContent() {
                           e.target.value
                         )
                       }
-                      className="w-full rounded-lg border border-gray-700 bg-gray-700 px-3 py-2 text-sm text-white focus:outline-none focus:outline-none focus:border-gray-400"
+                      className="w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-sm text-white focus:outline-none focus:outline-none focus:border-gray-400"
                     />
                   </div>
                 </div>
               </div>
 
               {/* Purchasing Declaration */}
-              <div className="rounded-lg border border-gray-700 bg-gray-700/50 p-4 space-y-4">
+              <div className="rounded-lg border border-white/15 bg-black/20 p-4 space-y-4">
                 <h3 className="text-base font-semibold text-orange-400">
                   Purchasing Terms & Conditions Declaration
                 </h3>
@@ -1518,7 +1518,7 @@ export default function SupplierDueDiligenceFormContent() {
                           e.target.value
                         )
                       }
-                      className="w-full rounded-lg border border-gray-700 bg-gray-700 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
+                      className="w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
                     />
                   </div>
                   <div>
@@ -1534,7 +1534,7 @@ export default function SupplierDueDiligenceFormContent() {
                           e.target.value
                         )
                       }
-                      className="w-full rounded-lg border border-gray-700 bg-gray-700 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
+                      className="w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400"
                     />
                   </div>
                   <div className="md:col-span-2">
@@ -1550,12 +1550,12 @@ export default function SupplierDueDiligenceFormContent() {
                           e.target.value
                         )
                       }
-                      className="w-full rounded-lg border border-gray-700 bg-gray-700 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400 resize-y mb-2"
+                      className="w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-300 focus:outline-none focus:outline-none focus:border-gray-400 resize-y mb-2"
                       placeholder="Type your signature here"
                     />
                     <div className="flex flex-wrap items-center gap-2">
                       <label className="cursor-pointer">
-                        <span className="inline-flex items-center gap-1 rounded-lg border border-gray-600 bg-gray-700 px-3 py-1.5 text-xs text-gray-300 hover:bg-gray-600">
+                        <span className="inline-flex items-center gap-1 rounded-lg border border-white/25 bg-black/20 px-3 py-1.5 text-xs text-gray-300 hover:bg-gray-600">
                           Upload signature image
                         </span>
                         <input
@@ -1575,7 +1575,7 @@ export default function SupplierDueDiligenceFormContent() {
                           <img
                             src={form.purchasingDeclaration.signatureImage}
                             alt="Signature"
-                            className="h-10 border border-gray-600 rounded object-contain bg-gray-700"
+                            className="h-10 border border-white/25 rounded object-contain bg-black/20"
                           />
                           <button
                             type="button"
@@ -1603,7 +1603,7 @@ export default function SupplierDueDiligenceFormContent() {
                           e.target.value
                         )
                       }
-                      className="w-full rounded-lg border border-gray-700 bg-gray-700 px-3 py-2 text-sm text-white focus:outline-none focus:outline-none focus:border-gray-400"
+                      className="w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-sm text-white focus:outline-none focus:outline-none focus:border-gray-400"
                     />
                   </div>
                 </div>
@@ -1611,7 +1611,7 @@ export default function SupplierDueDiligenceFormContent() {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex items-center justify-between pt-6 border-t border-gray-700">
+            <div className="flex items-center justify-between pt-6 border-t border-white/15">
               <div className="flex items-center gap-4">
                 {formCode ? (
                   <div className="text-xs text-white">

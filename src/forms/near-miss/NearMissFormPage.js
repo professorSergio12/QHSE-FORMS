@@ -176,7 +176,7 @@ export default function NearMissFormPage() {
   return (
     <div className="min-h-screen">
       {/* Custom Navigation / Header */}
-      <nav className="bg-gray-800 border-b border-gray-700 sticky top-0 z-50 py-4 px-4 shadow-lg">
+      <nav className="bg-black/20 backdrop-blur-md border-b border-white/15 sticky top-0 z-50 py-4 px-4 shadow-lg">
         <div className="container mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
             <div className="rounded-lg">
@@ -196,7 +196,7 @@ export default function NearMissFormPage() {
             </h1>
           </div>
 
-          <div className="bg-gray-700 rounded-lg p-3 border border-gray-600 min-w-[250px] w-full md:w-auto">
+          <div className="bg-white/5 rounded-lg p-3 border border-white/20 min-w-[250px] w-full md:w-auto">
             <div className="text-sm space-y-1 text-gray-300">
               <div className="flex justify-between gap-4">
                 <span>Form Code:</span>
@@ -222,7 +222,7 @@ export default function NearMissFormPage() {
       <div className="relative min-h-screen">
         {/* Background Overlay */}
         <div
-          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed opacity-30 filter blur-xs"
+          className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed opacity-30 filter blur-xs"
           style={{ backgroundImage: 'url("/image/ship-bg.jpg")' }}
         ></div>
 
@@ -240,7 +240,7 @@ export default function NearMissFormPage() {
             </div>
           )}
 
-          <div className="bg-gray-800/90 backdrop-blur-sm rounded-2xl border border-gray-700 p-6 md:p-10 shadow-xl">
+          <div className="bg-white/5 backdrop-blur-[2px] rounded-2xl border border-white/15 p-6 md:p-10 shadow-xl">
               <p className="text-gray-300 text-sm mb-4 italic">
                 When you submit this form, it will not automatically collect
                 your details like name and email address unless you provide it
@@ -265,7 +265,7 @@ export default function NearMissFormPage() {
                   value={form.jobRef}
                   onChange={handleChange}
                   required
-                  className="w-full rounded-lg border border-gray-600 bg-gray-700/50 px-3 py-2 text-sm text-white placeholder:text-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
+                  className="w-full rounded-lg border border-white/25 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
                   placeholder="Enter your answer"
                 />
               </div>
@@ -282,7 +282,7 @@ export default function NearMissFormPage() {
                   value={form.vesselName}
                   onChange={handleChange}
                   required
-                  className="w-full rounded-lg border border-gray-600 bg-gray-700/50 px-3 py-2 text-sm text-white placeholder:text-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
+                  className="w-full rounded-lg border border-white/25 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
                   placeholder="Enter your answer"
                 />
               </div>
@@ -298,7 +298,7 @@ export default function NearMissFormPage() {
                   value={form.date}
                   onChange={handleChange}
                   required
-                  className="mt-1 w-full rounded-lg border border-gray-600 bg-gray-700/50 px-3 py-2 text-sm text-white focus:outline-none focus:outline-none focus:border-gray-400"
+                  className="mt-1 w-full rounded-lg border border-white/25 bg-black/20 px-3 py-2 text-sm text-white focus:outline-none focus:outline-none focus:border-gray-400"
                 />
               </div>
 
@@ -314,7 +314,7 @@ export default function NearMissFormPage() {
                   value={form.observerName}
                   onChange={handleChange}
                   required
-                  className="mt-1 w-full rounded-md border border-gray-600 bg-gray-700/50 px-3 py-2 text-sm text-white placeholder:text-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
+                  className="mt-1 w-full rounded-md border border-white/25 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
                   placeholder="Enter your answer"
                 />
               </div>
@@ -348,7 +348,7 @@ export default function NearMissFormPage() {
                       name="positionOther"
                       value={form.positionOther}
                       onChange={handleChange}
-                      className="mt-1 w-full rounded-md border border-gray-600 bg-gray-700/50 px-3 py-2 text-sm text-white placeholder:text-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
+                      className="mt-1 w-full rounded-md border border-white/25 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
                       placeholder="Please specify"
                     />
                   )}
@@ -366,7 +366,7 @@ export default function NearMissFormPage() {
                   value={form.email}
                   onChange={handleChange}
                   required
-                  className="mt-1 w-full rounded-md border border-gray-600 bg-gray-700/50 px-3 py-2 text-sm text-white placeholder:text-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
+                  className="mt-1 w-full rounded-md border border-white/25 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
                   placeholder="Enter your answer"
                 />
               </div>
@@ -407,7 +407,7 @@ export default function NearMissFormPage() {
                   value={form.area}
                   onChange={handleChange}
                   required
-                  className="mt-1 w-full rounded-lg border border-gray-600 bg-gray-700/50 px-3 py-2 text-sm text-white focus:outline-none focus:outline-none focus:border-gray-400"
+                  className="[&_option]:bg-gray-800 mt-1 w-full rounded-lg border border-white/25 bg-black/20 px-3 py-2 text-sm text-white focus:outline-none focus:outline-none focus:border-gray-400"
                 >
                   <option value="">Select your answer</option>
                   {AREA_OPTIONS.map((area) => (
@@ -429,7 +429,7 @@ export default function NearMissFormPage() {
                   onChange={handleChange}
                   required
                   rows={3}
-                  className="mt-1 w-full rounded-md border border-gray-600 bg-gray-700/50 px-3 py-2 text-sm text-white placeholder:text-gray-400 resize-y focus:outline-none focus:outline-none focus:border-gray-400"
+                  className="mt-1 w-full rounded-md border border-white/25 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-400 resize-y focus:outline-none focus:outline-none focus:border-gray-400"
                   placeholder="Enter your answer"
                 />
               </div>
@@ -445,7 +445,7 @@ export default function NearMissFormPage() {
                   onChange={handleChange}
                   required
                   rows={3}
-                  className="mt-1 w-full rounded-md border border-gray-600 bg-gray-700/50 px-3 py-2 text-sm text-white placeholder:text-gray-400 resize-y focus:outline-none focus:outline-none focus:border-gray-400"
+                  className="mt-1 w-full rounded-md border border-white/25 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-400 resize-y focus:outline-none focus:outline-none focus:border-gray-400"
                   placeholder="Enter your answer"
                 />
               </div>
@@ -461,7 +461,7 @@ export default function NearMissFormPage() {
                   onChange={handleChange}
                   required
                   rows={3}
-                  className="mt-1 w-full rounded-md border border-gray-600 bg-gray-700/50 px-3 py-2 text-sm text-white placeholder:text-gray-400 resize-y focus:outline-none focus:outline-none focus:border-gray-400"
+                  className="mt-1 w-full rounded-md border border-white/25 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-400 resize-y focus:outline-none focus:outline-none focus:border-gray-400"
                   placeholder="Enter your answer"
                 />
               </div>
@@ -477,7 +477,7 @@ export default function NearMissFormPage() {
                   onChange={handleChange}
                   required
                   rows={3}
-                  className="mt-1 w-full rounded-md border border-gray-600 bg-gray-700/50 px-3 py-2 text-sm text-white placeholder:text-gray-400 resize-y focus:outline-none focus:outline-none focus:border-gray-400"
+                  className="mt-1 w-full rounded-md border border-white/25 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-gray-400 resize-y focus:outline-none focus:outline-none focus:border-gray-400"
                   placeholder="Enter your answer"
                 />
               </div>

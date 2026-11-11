@@ -227,18 +227,18 @@ export default function PoacCrossCompetencyFormPage() {
   };
 
   const inputClass = (hasError) =>
-    `w-full rounded-lg border px-3 py-2 text-sm text-white bg-gray-700 focus:outline-none focus:border-gray-400 ${
-      hasError ? "border-red-500" : "border-gray-600"
+    `w-full rounded-lg border px-3 py-2 text-sm text-white bg-black/20 placeholder:text-gray-400 [&_option]:bg-gray-800 focus:outline-none focus:border-gray-300 ${
+      hasError ? "border-red-500" : "border-white/25"
     }`;
   const labelClass = "block text-xs font-medium text-gray-300 mb-1.5";
-  const sectionClass = "bg-gray-800/90 backdrop-blur-sm rounded-2xl p-6 border border-gray-700 shadow-xl";
+  const sectionClass = "bg-white/5 backdrop-blur-[2px] rounded-2xl p-6 border border-white/15 shadow-xl";
   const sectionTitleClass = "text-lg font-bold text-white mb-4";
 
   const renderCategory = (category) => {
     const categoryItems = form.evaluationItems.filter((item) => item.srNo >= category.start && item.srNo <= category.end);
     const isOffice = category.start >= POAC_OFFICE_START_SR_NO;
     return (
-      <div key={category.name} className="border border-gray-700 rounded-xl p-4 bg-gray-700/30">
+      <div key={category.name} className="border border-white/15 rounded-xl p-4 bg-white/5">
         <h3 className="text-sm font-bold text-gray-200 mb-3">{category.name}</h3>
         <div className="space-y-3">
           {categoryItems.map((item) => {
@@ -246,7 +246,7 @@ export default function PoacCrossCompetencyFormPage() {
             const errorText = validationErrors[`evaluation_${globalIndex}`];
             const remarksRequired = poacRemarksRequired(item.evaluation);
             return (
-              <div key={item.srNo} className="border border-gray-600 rounded-lg p-3 bg-gray-700/20">
+              <div key={item.srNo} className="border border-white/10 rounded-lg p-3 bg-transparent">
                 <div className="flex items-center gap-3 flex-wrap">
                   <span className="text-xs font-semibold text-gray-400 shrink-0">{item.srNo}.</span>
                   <p className="text-xs text-gray-300 flex-1 min-w-0">{item.area}</p>
@@ -287,7 +287,7 @@ export default function PoacCrossCompetencyFormPage() {
   return (
     <div className="min-h-screen">
       {/* Custom Navigation / Header */}
-      <nav className="bg-gray-800 border-b border-gray-700 sticky top-0 z-50 py-4 px-4 shadow-lg">
+      <nav className="bg-black/20 backdrop-blur-md border-b border-white/15 sticky top-0 z-50 py-4 px-4 shadow-lg">
         <div className="container mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
             <div className="rounded-lg">
@@ -307,7 +307,7 @@ export default function PoacCrossCompetencyFormPage() {
             </h1>
           </div>
 
-          <div className="bg-gray-700 rounded-lg p-3 border border-gray-600 min-w-[250px] w-full md:w-auto">
+          <div className="bg-white/5 rounded-lg p-3 border border-white/20 min-w-[250px] w-full md:w-auto">
             <div className="text-sm space-y-1 text-gray-300">
               <div className="flex justify-between gap-4">
                 <span>Form Code:</span>
@@ -339,7 +339,7 @@ export default function PoacCrossCompetencyFormPage() {
       <div className="relative min-h-screen">
         {/* Background Overlay */}
         <div
-          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed opacity-30 filter blur-xs"
+          className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed opacity-30 filter blur-xs"
           style={{ backgroundImage: 'url("/image/ship-bg.jpg")' }}
         ></div>
 

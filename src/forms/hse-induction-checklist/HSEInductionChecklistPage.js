@@ -14,7 +14,7 @@ const CheckboxComponent = ({ question, checked, onChange }) => {
           type="checkbox"
           checked={checked}
           onChange={(e) => onChange(e.target.checked)}
-          className="mt-1 w-5 h-5 text-gray-400 bg-gray-700 border-gray-600 focus:ring-0 focus:border-gray-400 rounded"
+          className="mt-1 w-5 h-5 text-gray-400 bg-black/20 border-white/25 focus:ring-0 focus:border-gray-400 rounded"
         />
         <span className="text-gray-300 group-hover:text-white transition-colors flex-1">
           {question}
@@ -222,7 +222,7 @@ export default function HSEInductionChecklist() {
   return (
     <div className="min-h-screen futuristic-bg">
       {/* Custom Navigation / Header Header for this page */}
-      <nav className="bg-gray-800 border-b border-gray-700 sticky top-0 z-50 py-4 px-4 shadow-lg">
+      <nav className="bg-black/20 backdrop-blur-md border-b border-white/15 sticky top-0 z-50 py-4 px-4 shadow-lg">
         <div className="container mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
             <div className="rounded-lg">
@@ -242,7 +242,7 @@ export default function HSEInductionChecklist() {
             </h1>
           </div>
 
-          <div className="bg-gray-700 rounded-lg p-3 border border-gray-600 min-w-[250px] w-full md:w-auto">
+          <div className="bg-white/5 rounded-lg p-3 border border-white/20 min-w-[250px] w-full md:w-auto">
             <div className="text-sm space-y-1 text-gray-300">
               <div className="flex justify-between gap-4">
                 <span>Form Code:</span>
@@ -300,13 +300,13 @@ export default function HSEInductionChecklist() {
       <div className="relative min-h-screen">
         {/* Background Overlay */}
         <div
-          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed opacity-30 filter blur-xs"
+          className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed opacity-30 filter blur-xs"
           style={{ backgroundImage: 'url("/image/ship-bg.jpg")' }}
         ></div>
 
         <div className="container relative z-10 mx-auto px-4 py-8 max-w-3xl">
           {/* Header Section */}
-          <div className="bg-gray-800/90 backdrop-blur-sm rounded-2xl mb-8 p-8 border border-gray-700 shadow-xl">
+          <div className="bg-white/5 backdrop-blur-[2px] rounded-2xl mb-8 p-8 border border-white/15 shadow-xl">
 
             <p className="text-gray-300 text-sm mb-6 italic">
               Discuss each of the following items with the concerned. This
@@ -315,7 +315,7 @@ export default function HSEInductionChecklist() {
             </p>
 
             {/* General Information */}
-            <div className="bg-gray-700 rounded-lg p-4 mb-4 border border-gray-600">
+            <div className="bg-black/20 rounded-lg p-4 mb-4 border border-white/25">
               <h2 className="text-xl font-bold text-white mb-4">
                 General Information
               </h2>
@@ -334,7 +334,7 @@ export default function HSEInductionChecklist() {
                     onChange={(e) =>
                       updateField("employeeOrContractorName", e.target.value)
                     }
-                    className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400 transition-all"
+                    className="w-full px-4 py-2 bg-black/20 border border-white/25 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400 transition-all"
                     placeholder="Enter employee/contractor name"
                   />
                 </div>
@@ -352,7 +352,7 @@ export default function HSEInductionChecklist() {
                     onChange={(e) =>
                       updateField("dateOfInduction", e.target.value)
                     }
-                    className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400 transition-all"
+                    className="w-full px-4 py-2 bg-black/20 border border-white/25 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400 transition-all"
                   />
                 </div>
                 <div>
@@ -367,7 +367,7 @@ export default function HSEInductionChecklist() {
                     type="text"
                     value={formData.location}
                     onChange={(e) => updateField("location", e.target.value)}
-                    className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400 transition-all"
+                    className="w-full px-4 py-2 bg-black/20 border border-white/25 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400 transition-all"
                     placeholder="Enter location"
                   />
                 </div>
@@ -377,8 +377,8 @@ export default function HSEInductionChecklist() {
 
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* HSE Policy Checklist */}
-            <div className="bg-gray-800/90 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 shadow-xl">
-              <div className="bg-gray-700 rounded-lg p-4 mb-6 border border-gray-600">
+            <div className="bg-white/5 backdrop-blur-[2px] rounded-2xl p-8 border border-white/15 shadow-xl">
+              <div className="bg-black/20 rounded-lg p-4 mb-6 border border-white/25">
                 <h2 className="text-2xl font-bold text-white">
                   HSE Policy Checklist
                 </h2>
@@ -499,8 +499,8 @@ export default function HSEInductionChecklist() {
             </div>
 
             {/* Job Function / Facility Operation */}
-            <div className="bg-gray-800/90 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 shadow-xl">
-              <div className="bg-gray-700 rounded-lg p-4 mb-6 border border-gray-600">
+            <div className="bg-white/5 backdrop-blur-[2px] rounded-2xl p-8 border border-white/15 shadow-xl">
+              <div className="bg-black/20 rounded-lg p-4 mb-6 border border-white/25">
                 <h2 className="text-2xl font-bold text-white">
                   As appropriate by job function & facility operation
                 </h2>
@@ -589,8 +589,8 @@ export default function HSEInductionChecklist() {
             </div>
 
             {/* Commitment Section */}
-            <div className="bg-gray-800/90 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 shadow-xl">
-              <div className="bg-gray-700 rounded-lg p-4 mb-6 border border-gray-600">
+            <div className="bg-white/5 backdrop-blur-[2px] rounded-2xl p-8 border border-white/15 shadow-xl">
+              <div className="bg-black/20 rounded-lg p-4 mb-6 border border-white/25">
                 <h2 className="text-2xl font-bold text-white">
                   Employee's / visitor's / contractor's Commitment
                 </h2>
@@ -631,12 +631,12 @@ export default function HSEInductionChecklist() {
                     onChange={(e) =>
                       updateSignature("employeeSignature", e.target.value)
                     }
-                    className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-gray-400 transition-all"
+                    className="w-full px-4 py-2 bg-black/20 border border-white/25 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-gray-400 transition-all"
                     placeholder="Type signature or full name"
                   />
                   <p className="text-xs text-gray-400 mt-1">Or upload signature image</p>
                   <div className="mt-2 flex flex-wrap items-center gap-2">
-                    <label className="cursor-pointer px-3 py-2 rounded-lg bg-gray-700 border border-gray-600 text-gray-300 hover:bg-gray-600 text-sm font-medium">
+                    <label className="cursor-pointer px-3 py-2 rounded-lg bg-black/20 border border-white/25 text-gray-300 hover:bg-gray-600 text-sm font-medium">
                       <input
                         type="file"
                         accept="image/*"
@@ -652,7 +652,7 @@ export default function HSEInductionChecklist() {
                         <img
                           src={formData.signatures.employeeSignature}
                           alt="Employee signature"
-                          className="h-12 w-20 object-contain rounded border border-gray-600 bg-white"
+                          className="h-12 w-20 object-contain rounded border border-white/25 bg-white"
                         />
                         <button
                           type="button"
@@ -679,15 +679,15 @@ export default function HSEInductionChecklist() {
                     onChange={(e) =>
                       updateSignature("employeeSignatureDate", e.target.value)
                     }
-                    className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-gray-400 transition-all"
+                    className="w-full px-4 py-2 bg-black/20 border border-white/25 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-gray-400 transition-all"
                   />
                 </div>
               </div>
             </div>
 
             {/* Induction Giver Signature */}
-            <div className="bg-gray-800/90 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 shadow-xl">
-              <div className="bg-gray-700 rounded-lg p-4 mb-6 border border-gray-600">
+            <div className="bg-white/5 backdrop-blur-[2px] rounded-2xl p-8 border border-white/15 shadow-xl">
+              <div className="bg-black/20 rounded-lg p-4 mb-6 border border-white/25">
                 <h2 className="text-2xl font-bold text-white">
                   Signature of Person Giving Induction (type or upload image)
                 </h2>
@@ -705,12 +705,12 @@ export default function HSEInductionChecklist() {
                   onChange={(e) =>
                     updateSignature("inductionGivenBySignature", e.target.value)
                   }
-                  className="w-full max-w-md px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-gray-400 transition-all"
+                  className="w-full max-w-md px-4 py-2 bg-black/20 border border-white/25 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-gray-400 transition-all"
                   placeholder="Type signature or full name"
                 />
                 <p className="text-xs text-gray-400">Or upload signature image</p>
                 <div className="flex flex-wrap items-center gap-2">
-                  <label className="cursor-pointer px-3 py-2 rounded-lg bg-gray-700 border border-gray-600 text-gray-300 hover:bg-gray-600 text-sm font-medium">
+                  <label className="cursor-pointer px-3 py-2 rounded-lg bg-black/20 border border-white/25 text-gray-300 hover:bg-gray-600 text-sm font-medium">
                     <input
                       type="file"
                       accept="image/*"
@@ -728,7 +728,7 @@ export default function HSEInductionChecklist() {
                         <img
                           src={formData.signatures.inductionGivenBySignature}
                           alt="Induction giver signature"
-                          className="h-12 w-20 object-contain rounded border border-gray-600 bg-white"
+                          className="h-12 w-20 object-contain rounded border border-white/25 bg-white"
                         />
                         <button
                           type="button"
@@ -746,8 +746,8 @@ export default function HSEInductionChecklist() {
             </div>
 
             {/* Submitted By */}
-            <div className="bg-gray-800/90 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 shadow-xl">
-              <div className="bg-gray-700 rounded-lg p-4 mb-6 border border-gray-600">
+            <div className="bg-white/5 backdrop-blur-[2px] rounded-2xl p-8 border border-white/15 shadow-xl">
+              <div className="bg-black/20 rounded-lg p-4 mb-6 border border-white/25">
                 <h2 className="text-2xl font-bold text-white">Submitted By</h2>
               </div>
               <div>
@@ -755,7 +755,7 @@ export default function HSEInductionChecklist() {
                   type="text"
                   value={formData.submittedBy}
                   onChange={(e) => updateField("submittedBy", e.target.value)}
-                  className="w-full max-w-md px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400 transition-all"
+                  className="w-full max-w-md px-4 py-2 bg-black/20 border border-white/25 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400 transition-all"
                   placeholder="Enter name"
                 />
               </div>

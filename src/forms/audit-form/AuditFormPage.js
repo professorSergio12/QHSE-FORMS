@@ -239,7 +239,7 @@ export default function AuditFormPage() {
   return (
     <div className="min-h-screen">
       {/* Custom Navigation / Header Header for this page */}
-      <nav className="bg-gray-800 border-b border-gray-700 sticky top-0 z-50 py-4 px-4 shadow-lg">
+      <nav className="bg-black/20 backdrop-blur-md border-b border-white/15 sticky top-0 z-50 py-4 px-4 shadow-lg">
         <div className="container mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
             <div className="rounded-lg">
@@ -259,7 +259,7 @@ export default function AuditFormPage() {
             </h1>
           </div>
 
-          <div className="bg-gray-700 rounded-lg p-3 border border-gray-600 min-w-[250px] w-full md:w-auto">
+          <div className="bg-white/5 rounded-lg p-3 border border-white/20 min-w-[250px] w-full md:w-auto">
             <div className="text-sm space-y-1 text-gray-300">
               <div className="flex justify-between gap-4">
                 <span>Form Code:</span>
@@ -297,7 +297,7 @@ export default function AuditFormPage() {
       <div className="relative min-h-screen">
         {/* Background Overlay */}
         <div 
-          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed opacity-30 filter blur-xs"
+          className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed opacity-30 filter blur-xs"
           style={{ backgroundImage: 'url("/image/ship-bg.jpg")' }}
         ></div>
 
@@ -318,7 +318,7 @@ export default function AuditFormPage() {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Subcontractor Information */}
-          <section className="bg-gray-800/90 backdrop-blur-sm rounded-2xl p-6 border border-gray-700 shadow-xl">
+          <section className="bg-white/5 backdrop-blur-[2px] rounded-2xl p-6 border border-white/15 shadow-xl">
             <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
               <span className="w-1 h-6 bg-gradient-to-b from-orange-500 to-orange-600 rounded"></span>
               Subcontractor Information
@@ -335,7 +335,7 @@ export default function AuditFormPage() {
                   onChange={(e) =>
                     handleInputChange("subcontractorName", e.target.value)
                   }
-                  className="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
+                  className="w-full px-4 py-3 rounded-lg bg-black/20 border border-white/25 text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
                   placeholder="Enter subcontractor name"
                 />
               </div>
@@ -350,7 +350,7 @@ export default function AuditFormPage() {
                   onChange={(e) =>
                     handleInputChange("serviceType", e.target.value)
                   }
-                  className="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
+                  className="w-full px-4 py-3 rounded-lg bg-black/20 border border-white/25 text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
                   placeholder="Enter service type"
                 />
               </div>
@@ -365,7 +365,7 @@ export default function AuditFormPage() {
                   onChange={(e) =>
                     handleInputChange("subcontractorAddress", e.target.value)
                   }
-                  className="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400 resize-none"
+                  className="w-full px-4 py-3 rounded-lg bg-black/20 border border-white/25 text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400 resize-none"
                   placeholder="Enter full address"
                 />
               </div>
@@ -379,7 +379,7 @@ export default function AuditFormPage() {
                   onChange={(e) =>
                     handleInputChange("operatingAreas", e.target.value)
                   }
-                  className="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
+                  className="w-full px-4 py-3 rounded-lg bg-black/20 border border-white/25 text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
                   placeholder="Enter operating areas"
                 />
               </div>
@@ -387,7 +387,7 @@ export default function AuditFormPage() {
           </section>
 
           {/* Contact Information */}
-          <section className="bg-gray-800/90 backdrop-blur-sm rounded-2xl p-6 border border-gray-700 shadow-xl">
+          <section className="bg-white/5 backdrop-blur-[2px] rounded-2xl p-6 border border-white/15 shadow-xl">
             <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
               <span className="w-1 h-6 bg-gradient-to-b from-orange-500 to-orange-600 rounded"></span>
               Contact Information
@@ -404,7 +404,7 @@ export default function AuditFormPage() {
                   onChange={(e) =>
                     handleInputChange("contactPerson", e.target.value)
                   }
-                  className="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
+                  className="w-full px-4 py-3 rounded-lg bg-black/20 border border-white/25 text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
                   placeholder="Enter contact person name"
                 />
               </div>
@@ -419,7 +419,7 @@ export default function AuditFormPage() {
                   onChange={(e) =>
                     handleInputChange("emailOfContactPerson", e.target.value)
                   }
-                  className="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
+                  className="w-full px-4 py-3 rounded-lg bg-black/20 border border-white/25 text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
                   placeholder="email@example.com"
                 />
               </div>
@@ -434,7 +434,7 @@ export default function AuditFormPage() {
                   onChange={(e) =>
                     handleInputChange("phoneOfContactPerson", e.target.value)
                   }
-                  className="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
+                  className="w-full px-4 py-3 rounded-lg bg-black/20 border border-white/25 text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
                   placeholder="+1234567890"
                 />
               </div>
@@ -442,7 +442,7 @@ export default function AuditFormPage() {
           </section>
 
           {/* Compliance Questions */}
-          <section className="bg-gray-800/90 backdrop-blur-sm rounded-2xl p-6 border border-gray-700 shadow-xl">
+          <section className="bg-white/5 backdrop-blur-[2px] rounded-2xl p-6 border border-white/15 shadow-xl">
             <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
               <span className="w-1 h-6 bg-gradient-to-b from-orange-500 to-orange-600 rounded"></span>
               Compliance Questions
@@ -471,7 +471,7 @@ export default function AuditFormPage() {
                         name={key}
                         checked={formData[key] === true}
                         onChange={() => handleBooleanChange(key, true)}
-                        className="w-4 h-4 text-orange-500 bg-gray-700/50 border-gray-600 focus:ring-0 focus:border-gray-400"
+                        className="w-4 h-4 text-orange-500 bg-black/20 border-white/25 focus:ring-0 focus:border-gray-400"
                         required
                       />
                       <span className="text-gray-300">Yes</span>
@@ -482,7 +482,7 @@ export default function AuditFormPage() {
                         name={key}
                         checked={formData[key] === false}
                         onChange={() => handleBooleanChange(key, false)}
-                        className="w-4 h-4 text-orange-500 bg-gray-700/50 border-gray-600 focus:ring-0 focus:border-gray-400"
+                        className="w-4 h-4 text-orange-500 bg-black/20 border-white/25 focus:ring-0 focus:border-gray-400"
                         required
                       />
                       <span className="text-gray-300">No</span>
@@ -494,7 +494,7 @@ export default function AuditFormPage() {
 
             {/* Insurance Details (conditional) */}
             {formData.hasInsurance === true && (
-              <div className="mt-6 pt-6 border-t border-gray-600">
+              <div className="mt-6 pt-6 border-t border-white/25">
                 <label className="block text-sm font-medium text-gray-300 mb-2">
                   Insurance Details <span className="text-red-400">*</span>
                 </label>
@@ -505,7 +505,7 @@ export default function AuditFormPage() {
                   onChange={(e) =>
                     handleInputChange("insuranceDetails", e.target.value)
                   }
-                  className="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400 resize-none"
+                  className="w-full px-4 py-3 rounded-lg bg-black/20 border border-white/25 text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400 resize-none"
                   placeholder="Enter insurance details"
                 />
               </div>
@@ -513,7 +513,7 @@ export default function AuditFormPage() {
           </section>
 
           {/* ISO Certifications */}
-          <section className="bg-gray-800/90 backdrop-blur-sm rounded-2xl p-6 border border-gray-700 shadow-xl">
+          <section className="bg-white/5 backdrop-blur-[2px] rounded-2xl p-6 border border-white/15 shadow-xl">
             <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
               <span className="w-1 h-6 bg-gradient-to-b from-orange-500 to-orange-600 rounded"></span>
               ISO Certifications <span className="text-red-400">*</span>
@@ -525,13 +525,13 @@ export default function AuditFormPage() {
               {ISO_CERTIFICATIONS.map((cert) => (
                 <label
                   key={cert}
-                  className="flex items-center gap-3 p-4 rounded-lg bg-gray-700/50 border border-gray-600 hover:bg-gray-700/80 cursor-pointer transition"
+                  className="flex items-center gap-3 p-4 rounded-lg bg-black/20 border border-white/25 hover:bg-white/10 cursor-pointer transition"
                 >
                   <input
                     type="checkbox"
                     checked={formData.isoCertifications.includes(cert)}
                     onChange={() => handleISOCertificationChange(cert)}
-                    className="w-4 h-4 text-orange-500 bg-gray-700/50 border-gray-600 rounded focus:ring-0 focus:border-gray-400"
+                    className="w-4 h-4 text-orange-500 bg-black/20 border-white/25 rounded focus:ring-0 focus:border-gray-400"
                   />
                   <span className="text-gray-300">{cert}</span>
                 </label>
@@ -540,7 +540,7 @@ export default function AuditFormPage() {
           </section>
 
           {/* Audit Completed By */}
-          <section className="bg-gray-800/90 backdrop-blur-sm rounded-2xl p-6 border border-gray-700 shadow-xl">
+          <section className="bg-white/5 backdrop-blur-[2px] rounded-2xl p-6 border border-white/15 shadow-xl">
             <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
               <span className="w-1 h-6 bg-gradient-to-b from-orange-500 to-orange-600 rounded"></span>
               Audit Completed By <span className="text-red-400">*</span>
@@ -561,7 +561,7 @@ export default function AuditFormPage() {
                       e.target.value
                     )
                   }
-                  className="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
+                  className="w-full px-4 py-3 rounded-lg bg-black/20 border border-white/25 text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
                   placeholder="Enter name"
                 />
               </div>
@@ -580,7 +580,7 @@ export default function AuditFormPage() {
                       e.target.value
                     )
                   }
-                  className="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
+                  className="w-full px-4 py-3 rounded-lg bg-black/20 border border-white/25 text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
                   placeholder="Enter designation"
                 />
               </div>
@@ -599,11 +599,11 @@ export default function AuditFormPage() {
                       e.target.value
                     )
                   }
-                  className="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
+                  className="w-full px-4 py-3 rounded-lg bg-black/20 border border-white/25 text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
                 />
               </div>
             </div>
-            <div className="mt-6 pt-6 border-t border-gray-600">
+            <div className="mt-6 pt-6 border-t border-white/25">
               <label className="block text-sm font-medium text-gray-300 mb-2">
                 Signature (optional – type or upload image)
               </label>
@@ -614,12 +614,12 @@ export default function AuditFormPage() {
                   onChange={(e) =>
                     handleNestedInputChange("auditCompletedBy", "signatureText", e.target.value)
                   }
-                  className="w-full px-4 py-2 rounded-lg bg-gray-700/50 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-gray-400 text-sm"
+                  className="w-full px-4 py-2 rounded-lg bg-black/20 border border-white/25 text-white placeholder-gray-400 focus:outline-none focus:border-gray-400 text-sm"
                   placeholder="Type your signature or full name"
                 />
                 <p className="text-xs text-gray-400">Or upload signature image</p>
                 <div className="flex flex-wrap items-center gap-4">
-                  <label className="cursor-pointer px-4 py-2 rounded-lg bg-gray-700/50 border border-gray-600 text-gray-300 hover:bg-gray-700/80 transition text-sm font-medium">
+                  <label className="cursor-pointer px-4 py-2 rounded-lg bg-black/20 border border-white/25 text-gray-300 hover:bg-white/10 transition text-sm font-medium">
                     <input
                       type="file"
                       accept="image/*"
@@ -637,7 +637,7 @@ export default function AuditFormPage() {
                       <img
                         src={formData.auditCompletedBy.signaturePhoto}
                         alt="Signature preview"
-                        className="h-12 w-24 object-contain rounded border border-gray-600 bg-gray-700/50"
+                        className="h-12 w-24 object-contain rounded border border-white/25 bg-black/20"
                       />
                       <button
                         type="button"
@@ -654,7 +654,7 @@ export default function AuditFormPage() {
           </section>
 
           {/* Contractor Approved By */}
-          <section className="bg-gray-800/90 backdrop-blur-sm rounded-2xl p-6 border border-gray-700 shadow-xl">
+          <section className="bg-white/5 backdrop-blur-[2px] rounded-2xl p-6 border border-white/15 shadow-xl">
             <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
               <span className="w-1 h-6 bg-gradient-to-b from-orange-500 to-orange-600 rounded"></span>
               Contractor Approved By <span className="text-red-400">*</span>
@@ -675,7 +675,7 @@ export default function AuditFormPage() {
                       e.target.value
                     )
                   }
-                  className="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
+                  className="w-full px-4 py-3 rounded-lg bg-black/20 border border-white/25 text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
                   placeholder="Enter name"
                 />
               </div>
@@ -694,7 +694,7 @@ export default function AuditFormPage() {
                       e.target.value
                     )
                   }
-                  className="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
+                  className="w-full px-4 py-3 rounded-lg bg-black/20 border border-white/25 text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
                   placeholder="Enter designation"
                 />
               </div>
@@ -713,11 +713,11 @@ export default function AuditFormPage() {
                       e.target.value
                     )
                   }
-                  className="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
+                  className="w-full px-4 py-3 rounded-lg bg-black/20 border border-white/25 text-white placeholder-gray-400 focus:outline-none focus:outline-none focus:border-gray-400"
                 />
               </div>
             </div>
-            <div className="mt-6 pt-6 border-t border-gray-600">
+            <div className="mt-6 pt-6 border-t border-white/25">
               <label className="block text-sm font-medium text-gray-300 mb-2">
                 Signature (optional – type or upload image)
               </label>
@@ -728,12 +728,12 @@ export default function AuditFormPage() {
                   onChange={(e) =>
                     handleNestedInputChange("contractorApprovedBy", "signatureText", e.target.value)
                   }
-                  className="w-full px-4 py-2 rounded-lg bg-gray-700/50 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-gray-400 text-sm"
+                  className="w-full px-4 py-2 rounded-lg bg-black/20 border border-white/25 text-white placeholder-gray-400 focus:outline-none focus:border-gray-400 text-sm"
                   placeholder="Type your signature or full name"
                 />
                 <p className="text-xs text-gray-400">Or upload signature image</p>
                 <div className="flex flex-wrap items-center gap-4">
-                  <label className="cursor-pointer px-4 py-2 rounded-lg bg-gray-700/50 border border-gray-600 text-gray-300 hover:bg-gray-700/80 transition text-sm font-medium">
+                  <label className="cursor-pointer px-4 py-2 rounded-lg bg-black/20 border border-white/25 text-gray-300 hover:bg-white/10 transition text-sm font-medium">
                     <input
                       type="file"
                       accept="image/*"
@@ -751,7 +751,7 @@ export default function AuditFormPage() {
                       <img
                         src={formData.contractorApprovedBy.signaturePhoto}
                         alt="Signature preview"
-                        className="h-12 w-24 object-contain rounded border border-gray-600 bg-gray-700/50"
+                        className="h-12 w-24 object-contain rounded border border-white/25 bg-black/20"
                       />
                       <button
                         type="button"
@@ -768,10 +768,10 @@ export default function AuditFormPage() {
           </section>
 
           {/* Submit Buttons */}
-          <div className="flex items-center justify-end gap-4 pt-6 border-t border-gray-600">
+          <div className="flex items-center justify-end gap-4 pt-6 border-t border-white/25">
             <Link
               href="/"
-              className="px-6 py-3 rounded-lg border border-gray-600 bg-gray-700/50 text-white font-medium hover:bg-gray-700/80 transition"
+              className="px-6 py-3 rounded-lg border border-white/25 bg-black/20 text-white font-medium hover:bg-white/10 transition"
             >
               Cancel
             </Link>
